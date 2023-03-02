@@ -3,10 +3,12 @@ class Bat
     #m_Mesh;
     #m_BoundingBox;
     #f_Speed;
+    #b_CanMove;
 
     constructor(m_SceneThreejs)
     {
         this.#f_Speed = 1;
+        this.#b_CanMove = false;
 
         // Cuboid itself
         let m_Geometry = new THREE.BoxGeometry(200, 40, 40);
@@ -24,17 +26,24 @@ class Bat
         return this.#m_BoundingBox;
     }
 
+    set_can_move(b_NewValue)
+    {
+        this.#b_CanMove = b_NewValue;
+    }
+
     update(f_DeltaTime, m_FrameBoundingBoxes) 
     {
         // Handle player input
         {
             // Move left
-            if (KeyStates.a) {
+            if (KeyStates.a && this.#b_CanMove)
+            {
                 this.#m_Mesh.translateX(-1 * f_DeltaTime * this.#f_Speed);
             }
 
             // Move right
-            if (KeyStates.d) {
+            if (KeyStates.d && this.#b_CanMove)
+            {
                 this.#m_Mesh.translateX(f_DeltaTime * this.#f_Speed);
             }
             // Updates bounding box
@@ -44,7 +53,8 @@ class Bat
         // Handle collision with walls
         {
             // If collides with left wall
-            if (do_boundingboxes_collide(this.#m_BoundingBox, m_FrameBoundingBoxes.left)) {
+            if (do_boundingboxes_collide(this.#m_BoundingBox, m_FrameBoundingBoxes.left))
+            {
                 let vec3_Wallsize = new THREE.Vector3;
                 let vec3_WallCenter = new THREE.Vector3;
                 let vec3_Batsize = new THREE.Vector3;
@@ -54,7 +64,8 @@ class Bat
                 this.#m_Mesh.position.x = Math.round(vec3_WallCenter.x + (vec3_Wallsize.x + vec3_Batsize.x) / 2);
             }
 
-            else if (do_boundingboxes_collide(this.#m_BoundingBox, m_FrameBoundingBoxes.right)) {
+            else if (do_boundingboxes_collide(this.#m_BoundingBox, m_FrameBoundingBoxes.right))
+            {
                 let vec3_Wallsize = new THREE.Vector3;
                 let vec3_WallCenter = new THREE.Vector3;
                 let vec3_Batsize = new THREE.Vector3;

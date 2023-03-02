@@ -28,7 +28,7 @@ class Ball
             this.#m_BoundingBox = new THREE.Box3();
             this.#m_BoundingSphere.getBoundingBox(this.#m_BoundingBox);
         }
-        this.ResetLocation(m_BatBoundingBox);
+        this.reset_location(m_BatBoundingBox);
     }
 
 
@@ -66,15 +66,6 @@ class Ball
     // Called every frame from Game
     update(f_DeltaTime, m_FrameBoundingBoxes, m_BatBoundingBox) 
     {
-        // Handles inputs 
-        {
-            if (KeyStates.space && !this.#b_Launched)
-            {
-                this.#b_Launched = true;
-                this.#vec3_Velocity.y = this.#f_Speed;
-            }
-        }
-
         // Updates ball location
         {
             if (f_DeltaTime)
@@ -106,7 +97,7 @@ class Ball
 
         // Handles collision with bat
         {
-            if (does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_BatBoundingBox))
+            if (this.#b_Launched && does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_BatBoundingBox))
             {
                 let vec3_BatSize = new THREE.Vector3();
                 m_BatBoundingBox.getSize(vec3_BatSize);
@@ -125,8 +116,20 @@ class Ball
 
     }
 
+    // Called from Game.update()
+    launch_ball()
+    {
+        this.#b_Launched = true;
+        this.#vec3_Velocity.y = this.#f_Speed;
+    }
+
+    get_ball_launched()
+    {
+        return this.#b_Launched;
+    }
+
     // Sets location of ball to on top of bat
-    ResetLocation(m_BatBoundingBox)
+    reset_location(m_BatBoundingBox)
     {
         // Get bat size
         let vec3_BatSize = new THREE.Vector3();
@@ -138,5 +141,16 @@ class Ball
 
         vec3_BallLocation.y += Math.round(vec3_BatSize.y / 2 + this.#i_Radius);
         this.#m_Sphere.position.set(vec3_BallLocation.x, vec3_BallLocation.y, vec3_BallLocation.z);
+        this.#b_Launched = false;
+        this.#vec3_Velocity = new THREE.Vector3(0, 0, 0);
+    }
+
+    check_if_in_frame()
+    {
+        if (this.#m_Sphere.position.y < 0)
+        {
+            return false;
+        }
+        return true;
     }
 }

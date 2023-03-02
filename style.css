@@ -5,3 +5,10 @@ body {
 #game-canvas {
   position: fixed;
 }
+
+#lives {
+  position: fixed;
+  z-index: 100;
+  right: 170px;
+  top: 10px;
+}

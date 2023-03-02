@@ -15,8 +15,13 @@ class Game
 
     #a_BrickObjects;
 
+    #i_Lives;
+
     constructor()
     {
+        this.#i_Lives = 3;
+        update_lives_div(this.#i_Lives);
+
         // Setup scene object
         this.#m_SceneThreejs = new THREE.Scene();
 
@@ -104,10 +109,33 @@ class Game
     update(f_DeltaTime)
     {
         this.#m_Bat.update(f_DeltaTime, this.#m_FrameBoundingBoxes);
+
+        // Handles inputs
+        {
+            if (KeyStates.space && !this.#m_Ball.get_ball_launched())
+            {
+                this.#m_Ball.launch_ball();
+                this.#m_Bat.set_can_move(true);
+            }
+        }
+
         this.#m_Ball.update(f_DeltaTime, this.#m_FrameBoundingBoxes, this.#m_Bat.get_bounding_box());
 
         // Handle collision of ball and bricks
         handle_bricks_collision(this.#m_SceneThreejs, this.#m_Ball, this.#a_BrickObjects);
+
+        if (!this.#m_Ball.check_if_in_frame())
+        {
+            // Update lives
+            this.#i_Lives -= 1;
+            update_lives_div(this.#i_Lives);
+
+            // Reset ball
+            this.#m_Ball.reset_location(this.#m_Bat.get_bounding_box());
+
+            // Disables bat from moving
+            this.#m_Bat.set_can_move(false);
+        }
     }
 
     draw() 

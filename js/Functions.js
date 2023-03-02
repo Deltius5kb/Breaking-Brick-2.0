@@ -11,6 +11,23 @@ const d_Colours = {
     "White": { color: 0xffffff }
 }
 
+function update_lives_div(i_NewHealth)
+{
+    let div = document.getElementById("lives");
+
+    // Removes all lives from the list
+    while (div.hasChildNodes())
+    {
+        div.removeChild(div.children[0]);
+    }
+
+    // Adds correct number of lives to list
+    for (let index = 0; index < i_NewHealth; index++)
+    {
+        div.appendChild(m_LivesImage.cloneNode(true));
+    }
+}
+
 function get_color_material(str_Color)
 {
     return new THREE.MeshStandardMaterial(d_Colours[str_Color]);

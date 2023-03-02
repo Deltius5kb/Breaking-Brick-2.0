@@ -31,11 +31,25 @@ class Ball
         this.ResetLocation(m_BatBoundingBox);
     }
 
+    // Called from Collision.js handle_bricks_collision()
+    get_bounding_sphere()
+    {
+        return this.#m_BoundingSphere;
+    }
+
+    // Called from Collision.js handle_bricks_collision()
+    get_bounding_box()
+    {
+        return this.#m_BoundingBox;
+    }
+
+    // Called every frame from Game
     update(f_DeltaTime, m_FrameBoundingBoxes, m_BatBoundingBox) 
     {
         // Handles inputs 
         {
-            if (KeyStates.space && !this.#b_Launched) {
+            if (KeyStates.space && !this.#b_Launched)
+            {
                 this.#b_Launched = true;
                 this.#vec3_Velocity.y = this.#f_Speed;
             }
@@ -43,7 +57,8 @@ class Ball
 
         // Updates ball location
         {
-            if (f_DeltaTime) {
+            if (f_DeltaTime)
+            {
                 this.#m_Sphere.position.set(
                     this.#m_Sphere.position.x + this.#vec3_Velocity.x * this.#f_Speed * f_DeltaTime,
                     this.#m_Sphere.position.y + this.#vec3_Velocity.y * this.#f_Speed * f_DeltaTime,
@@ -59,17 +74,20 @@ class Ball
         // Handles collision with walls
         {
             // Left or right walls
-            if (does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_FrameBoundingBoxes.left) || does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_FrameBoundingBoxes.right)) {
+            if (does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_FrameBoundingBoxes.left) || does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_FrameBoundingBoxes.right))
+            {
                 this.#vec3_Velocity.x *= -1;
             }
-            else if (does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_FrameBoundingBoxes.ceiling)) {
+            else if (does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_FrameBoundingBoxes.ceiling))
+            {
                 this.#vec3_Velocity.y *= -1;
             }
         }
 
         // Handles collision with bat
         {
-            if (does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_BatBoundingBox)) {
+            if (does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_BatBoundingBox))
+            {
                 let vec3_BatSize = new THREE.Vector3();
                 m_BatBoundingBox.getSize(vec3_BatSize);
 
@@ -82,7 +100,6 @@ class Ball
                 f_AngleToBounceAt += Math.PI * 0.5;
                 this.#vec3_Velocity.x = this.#f_Speed * Math.cos(f_AngleToBounceAt);
                 this.#vec3_Velocity.y = this.#f_Speed * Math.sin(f_AngleToBounceAt);
-
             }
         }
 

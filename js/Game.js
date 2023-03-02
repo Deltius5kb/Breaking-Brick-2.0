@@ -13,6 +13,8 @@ class Game
     #m_Bat;
     #m_Ball;
 
+    #a_BrickObjects;
+
     constructor()
     {
         // Setup scene object
@@ -83,6 +85,18 @@ class Game
             this.#m_SceneThreejs.add(this.#m_Frame.ceiling, this.#m_Frame.left, this.#m_Frame.right, this.#m_Frame.background);
         }
 
+        // Makes array of bricks
+        this.#a_BrickObjects = [];
+        for (let row = 0; row < 5; row++)
+        {
+            for (let column = 0; column < 12; column++)
+            {
+                let m_Brick = new Brick(this.#m_SceneThreejs, 1, new THREE.Vector2(column, row));
+                this.#a_BrickObjects.push(m_Brick);
+            }
+        }
+
+        // Make other objects
         this.#m_Bat = new Bat(this.#m_SceneThreejs);
         this.#m_Ball = new Ball(this.#m_SceneThreejs, this.#m_Bat.get_bounding_box());
     }
@@ -91,6 +105,9 @@ class Game
     {
         this.#m_Bat.update(f_DeltaTime, this.#m_FrameBoundingBoxes);
         this.#m_Ball.update(f_DeltaTime, this.#m_FrameBoundingBoxes, this.#m_Bat.get_bounding_box());
+
+        // Handle collision of ball and bricks
+        handle_bricks_collision(this.#m_SceneThreejs, this.#m_Ball, this.#a_BrickObjects);
     }
 
     draw() 

@@ -17,12 +17,17 @@ class Game
 
     #i_Score;
     #i_Lives;
+    #f_Timer;
+    #b_TimerRunning;
 
     constructor()
     {
         this.#i_Score = 0;
         this.#i_Lives = 3;
         update_lives_div(this.#i_Lives);
+
+        this.#f_Timer = 0;
+        this.#b_TimerRunning = false;
 
         // Setup scene object
         this.#m_SceneThreejs = new THREE.Scene();
@@ -118,6 +123,7 @@ class Game
             {
                 this.#m_Ball.launch_ball();
                 this.#m_Bat.set_can_move(true);
+                this.#b_TimerRunning = true;
             }
         }
 
@@ -127,17 +133,22 @@ class Game
         this.#i_Score += int_handle_bricks_collision(this.#m_SceneThreejs, this.#m_Ball, this.#a_BrickObjects);
         update_score_div(this.#i_Score);
 
+        // If ball is out of frame 
         if (!this.#m_Ball.check_if_in_frame())
         {
             // Update lives
             this.#i_Lives -= 1;
             update_lives_div(this.#i_Lives);
 
-            // Reset ball
             this.#m_Ball.reset_location(this.#m_Bat.get_bounding_box());
-
-            // Disables bat from moving
             this.#m_Bat.set_can_move(false);
+            this.#b_TimerRunning = false;
+        }
+
+        if (this.#b_TimerRunning)
+        {
+            this.#f_Timer += f_DeltaTime;
+            update_timer_div(this.#f_Timer);
         }
     }
 

@@ -21,24 +21,26 @@ class Ball
             this.#m_BoundingBox = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
             this.#m_BoundingSphere.getBoundingBox(this.#m_BoundingBox);
         }
-
-        // Sets location of ball to on top of bat
-        {
-            // Get bat size
-            let vec3_BatSize = new THREE.Vector3();
-            m_BatBoundingBox.getSize(vec3_BatSize);
-
-            // Copies bat location
-            let vec3_BallLocation = new THREE.Vector3();
-            m_BatBoundingBox.getCenter(vec3_BallLocation);
-
-            vec3_BallLocation.y += Math.round(vec3_BatSize.y / 2 + this.#i_Radius);
-            this.#m_Sphere.position.set(vec3_BallLocation.x, vec3_BallLocation.y, vec3_BallLocation.z);
-        }
+        this.ResetLocation(m_BatBoundingBox);
     }
 
     update() 
     {
 
+    }
+
+    // Sets location of ball to on top of bat
+    ResetLocation(m_BatBoundingBox)
+    {
+        // Get bat size
+        let vec3_BatSize = new THREE.Vector3();
+        m_BatBoundingBox.getSize(vec3_BatSize);
+
+        // Copies bat location
+        let vec3_BallLocation = new THREE.Vector3();
+        m_BatBoundingBox.getCenter(vec3_BallLocation);
+
+        vec3_BallLocation.y += Math.round(vec3_BatSize.y / 2 + this.#i_Radius);
+        this.#m_Sphere.position.set(vec3_BallLocation.x, vec3_BallLocation.y, vec3_BallLocation.z);
     }
 }

@@ -44,7 +44,7 @@ class Bat
         // Handle collision with walls
         {
             // If collides with left wall
-            if (DoBoundingBoxesCollide(this.#m_BoundingBox, m_FrameBoundingBoxes.left)) {
+            if (do_boundingboxes_collide(this.#m_BoundingBox, m_FrameBoundingBoxes.left)) {
                 let vec3_Wallsize = new THREE.Vector3;
                 let vec3_WallCenter = new THREE.Vector3;
                 let vec3_Batsize = new THREE.Vector3;
@@ -54,7 +54,7 @@ class Bat
                 this.#m_Mesh.position.x = Math.round(vec3_WallCenter.x + (vec3_Wallsize.x + vec3_Batsize.x) / 2);
             }
 
-            else if (DoBoundingBoxesCollide(this.#m_BoundingBox, m_FrameBoundingBoxes.right)) {
+            else if (do_boundingboxes_collide(this.#m_BoundingBox, m_FrameBoundingBoxes.right)) {
                 let vec3_Wallsize = new THREE.Vector3;
                 let vec3_WallCenter = new THREE.Vector3;
                 let vec3_Batsize = new THREE.Vector3;

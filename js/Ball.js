@@ -24,14 +24,14 @@ class Ball
             this.#m_Sphere = new THREE.Mesh(m_Geometry, m_Texture)
             m_SceneThreejs.add(this.#m_Sphere);
 
-            this.#m_BoundingSphere = new THREE.Sphere(new THREE.Vector3(), this.#i_Radius);
-            this.#m_BoundingBox = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
+            this.#m_BoundingSphere = new THREE.Sphere(this.#m_Sphere.position, this.#i_Radius);
+            this.#m_BoundingBox = new THREE.Box3();
             this.#m_BoundingSphere.getBoundingBox(this.#m_BoundingBox);
         }
         this.ResetLocation(m_BatBoundingBox);
     }
 
-    update(f_DeltaTime) 
+    update(f_DeltaTime, m_FrameBoundingBoxes) 
     {
         // Handles inputs 
         {
@@ -51,6 +51,20 @@ class Ball
                 );
             }
         }
+
+        // Handles collision with walls
+        {
+            // Left or right walls
+            if (does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_FrameBoundingBoxes.left) || does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_FrameBoundingBoxes.right)) {
+                this.#vec3_Velocity.x *= -1;
+            }
+            else if (does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_FrameBoundingBoxes.ceiling)) {
+                this.#vec3_Velocity.y *= -1;
+            }
+        }
+
+        this.#m_BoundingSphere.set(this.#m_Sphere.position, this.#i_Radius);
+        this.#m_BoundingSphere.getBoundingBox(this.#m_BoundingBox);
     }
 
     // Sets location of ball to on top of bat

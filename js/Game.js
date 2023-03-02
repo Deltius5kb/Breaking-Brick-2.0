@@ -90,6 +90,7 @@ class Game
     update(f_DeltaTime)
     {
         this.#m_Bat.update(f_DeltaTime, this.#m_FrameBoundingBoxes);
+        this.#m_Ball.update(f_DeltaTime);
     }
 
     draw() 

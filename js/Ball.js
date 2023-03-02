@@ -31,7 +31,7 @@ class Ball
         this.ResetLocation(m_BatBoundingBox);
     }
 
-    update(f_DeltaTime, m_FrameBoundingBoxes) 
+    update(f_DeltaTime, m_FrameBoundingBoxes, m_BatBoundingBox) 
     {
         // Handles inputs 
         {
@@ -50,6 +50,10 @@ class Ball
                     this.#m_Sphere.position.z + this.#vec3_Velocity.z * this.#f_Speed * f_DeltaTime
                 );
             }
+
+            // Updates bounding boxes
+            this.#m_BoundingSphere.set(this.#m_Sphere.position, this.#i_Radius);
+            this.#m_BoundingSphere.getBoundingBox(this.#m_BoundingBox);
         }
 
         // Handles collision with walls
@@ -63,8 +67,13 @@ class Ball
             }
         }
 
-        this.#m_BoundingSphere.set(this.#m_Sphere.position, this.#i_Radius);
-        this.#m_BoundingSphere.getBoundingBox(this.#m_BoundingBox);
+        // Handles collision with bat
+        {
+            if (does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_BatBoundingBox)) {
+                this.#vec3_Velocity.y *= -1;
+            }
+        }
+
     }
 
     // Sets location of ball to on top of bat

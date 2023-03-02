@@ -8,7 +8,7 @@ function do_boundingboxes_collide(m_BoundingBox1, m_BoundingBox2)
 
 function does_boundingsphere_collide_with_boundingbox(m_BoundingSphere, m_BoundingBoxOfSphere, m_BoundingBox)
 {
-    if (m_BoundingSphere.intersectsBox(m_BoundingBox) || m_BoundingBoxOfSphere.containsBox(m_BoundingBox)) {
+    if (m_BoundingSphere.intersectsBox(m_BoundingBox) || m_BoundingBox.containsBox(m_BoundingBoxOfSphere)) {
         return true;
     }
     return false;

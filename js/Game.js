@@ -15,10 +15,12 @@ class Game
 
     #a_BrickObjects;
 
+    #i_Score;
     #i_Lives;
 
     constructor()
     {
+        this.#i_Score = 0;
         this.#i_Lives = 3;
         update_lives_div(this.#i_Lives);
 
@@ -122,7 +124,8 @@ class Game
         this.#m_Ball.update(f_DeltaTime, this.#m_FrameBoundingBoxes, this.#m_Bat.get_bounding_box());
 
         // Handle collision of ball and bricks
-        handle_bricks_collision(this.#m_SceneThreejs, this.#m_Ball, this.#a_BrickObjects);
+        this.#i_Score += int_handle_bricks_collision(this.#m_SceneThreejs, this.#m_Ball, this.#a_BrickObjects);
+        update_score_div(this.#i_Score);
 
         if (!this.#m_Ball.check_if_in_frame())
         {

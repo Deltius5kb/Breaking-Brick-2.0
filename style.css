@@ -12,3 +12,26 @@ body {
   right: 170px;
   top: 10px;
 }
+
+#score {
+  /* Centers the div */
+  margin: auto;
+  position: fixed;
+  z-index: 100;
+  text-align: center;
+  vertical-align: text-top;
+  width: 100%;
+  color: #ffffff;
+  font-family: upheavtt;
+  font-size: 72px;
+}
+
+@font-face {
+  font-family: upheavtt;
+  src: url('upheavtt.ttf');
+}
+
+@font-face {
+  font-family: breakingbad;
+  src: url('breakingbad.otf');
+}

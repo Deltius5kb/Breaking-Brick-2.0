@@ -11,6 +11,14 @@ const d_Colours = {
     "White": { color: 0xffffff }
 }
 
+function update_score_div(i_Score)
+{
+    let div = document.getElementById("score");
+    let str_Score = i_Score.toString();
+    str_Score = `SCORE:${("0".repeat(4 - str_Score.length))}${str_Score}`;
+    div.innerHTML = str_Score;
+}
+
 function update_lives_div(i_NewHealth)
 {
     let div = document.getElementById("lives");

@@ -1,4 +1,4 @@
-function handle_bricks_collision(m_SceneThreejs, m_Ball, a_BrickObjects)
+function int_handle_bricks_collision(m_SceneThreejs, m_Ball, a_BrickObjects)
 {
     let m_BoundingSphere = m_Ball.get_bounding_sphere();
     let m_SphereBoundingBox = m_Ball.get_bounding_box();
@@ -19,13 +19,14 @@ function handle_bricks_collision(m_SceneThreejs, m_Ball, a_BrickObjects)
                 if (a_BrickObjects[index].get_health() == 0)
                 {
                     // Destroys brick mesh
-                    a_BrickObjects[index].destroy(m_SceneThreejs);
+                    let i_Score = a_BrickObjects[index].destroy(m_SceneThreejs);
                     // Removes from array
                     a_BrickObjects.splice(index, 1);
                     // Return so that ball can only bounce off 1 brick per frame
-                    return;
+                    return i_Score;
                 }
             }
         }
     }
+    return 0;
 } 

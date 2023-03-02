@@ -7,9 +7,11 @@ class Brick
 
     #i_Health;
     #vec2_Location
+    #i_Score;
     constructor(m_SceneThreejs, i_Health, vec2_Location) 
     {
         this.#i_Health = i_Health;
+        this.#i_Score = this.#i_Health * 10;
         this.#vec2_Location = vec2_Location;
         // Make cuboid
         {
@@ -49,5 +51,6 @@ class Brick
         this.#m_Mesh.geometry.dispose();
         this.#m_Mesh.material.dispose();
         this.#m_Mesh = undefined;
+        return this.#i_Score;
     }
 }

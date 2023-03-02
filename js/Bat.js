@@ -19,6 +19,11 @@ class Bat
         this.#m_BoundingBox = new THREE.Box3().setFromObject(this.#m_Mesh);
     }
 
+    get_bounding_box() 
+    {
+        return this.#m_BoundingBox;
+    }
+
     update(f_DeltaTime, m_FrameBoundingBoxes) 
     {
         // Handle player input

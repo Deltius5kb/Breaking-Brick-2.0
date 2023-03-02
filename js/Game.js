@@ -11,6 +11,7 @@ class Game
     #m_FrameBoundingBoxes;
 
     #m_Bat;
+    #m_Ball;
 
     constructor()
     {
@@ -83,6 +84,7 @@ class Game
         }
 
         this.#m_Bat = new Bat(this.#m_SceneThreejs);
+        this.#m_Ball = new Ball(this.#m_SceneThreejs, this.#m_Bat.get_bounding_box());
     }
 
     update(f_DeltaTime)

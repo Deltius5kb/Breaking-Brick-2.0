@@ -70,7 +70,19 @@ class Ball
         // Handles collision with bat
         {
             if (does_boundingsphere_collide_with_boundingbox(this.#m_BoundingSphere, this.#m_BoundingBox, m_BatBoundingBox)) {
-                this.#vec3_Velocity.y *= -1;
+                let vec3_BatSize = new THREE.Vector3();
+                m_BatBoundingBox.getSize(vec3_BatSize);
+
+                let vec3_BatLocation = new THREE.Vector3();
+                m_BatBoundingBox.getCenter(vec3_BatLocation);
+                let f_BallLandingRelativeToBat = this.#m_Sphere.position.x - vec3_BatLocation.x;
+
+                let f_PercentageOfBatBeforeLandingLocation = f_BallLandingRelativeToBat / vec3_BatSize.x;
+                let f_AngleToBounceAt = -1 * Math.PI * 0.5 * f_PercentageOfBatBeforeLandingLocation;
+                f_AngleToBounceAt += Math.PI * 0.5;
+                this.#vec3_Velocity.x = this.#f_Speed * Math.cos(f_AngleToBounceAt);
+                this.#vec3_Velocity.y = this.#f_Speed * Math.sin(f_AngleToBounceAt);
+
             }
         }
 

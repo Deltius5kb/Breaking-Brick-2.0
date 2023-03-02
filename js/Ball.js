@@ -31,6 +31,26 @@ class Ball
         this.ResetLocation(m_BatBoundingBox);
     }
 
+
+    // Called from Collision.js handle_bricks_collision()
+    bounce_off_brick(m_ObjectCollidedWithBoundingBox)
+    {
+        let vec3_CollidedObjectLocation = new THREE.Vector3();
+        m_ObjectCollidedWithBoundingBox.getCenter(vec3_CollidedObjectLocation);
+
+        let vec3_CollidedObjectSize = new THREE.Vector3();
+        m_ObjectCollidedWithBoundingBox.getSize(vec3_CollidedObjectSize);
+
+        if (vec3_CollidedObjectLocation.y - vec3_CollidedObjectSize.y / 2 > this.#m_Sphere.position.y || vec3_CollidedObjectLocation.y + vec3_CollidedObjectSize.y / 2 < this.#m_Sphere.position.y)
+        {
+            this.#vec3_Velocity.y *= -1;
+        }
+        else
+        {
+            this.#vec3_Velocity.x *= -1;
+        }
+    }
+
     // Called from Collision.js handle_bricks_collision()
     get_bounding_sphere()
     {

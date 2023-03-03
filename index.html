@@ -6,9 +6,21 @@
   </head>
 
   <body>
-    <div id="main-menu"></div>
+    <div id="main-menu">
+      <canvas id="main-menu-canvas"></canvas>
+      <img id="hank" src="textures/hank.png" />
+      <img id="breaking-brick-logo" src="textures/Title screen.png" />
+      <div id="main-menu-buttons">
+        <a id="main-menu-play" href="#" style="--clr: #6eff3e"
+          ><span>Play</span><i></i
+        ></a>
+        <a id="main-menu-settings" href="#" style="--clr: #6eff3e"
+          ><span>4ttings</span><i></i
+        ></a>
+      </div>
+    </div>
 
-    <div id="game-ui">
+    <div id="game-ui" style="display: none">
       <canvas id="game-canvas"></canvas>
 
       <div id="lives"></div>
@@ -16,13 +28,13 @@
       <div id="timer">00</div>
     </div>
 
-    <div id="pause-menu"></div>
+    <div id="pause-menu" style="display: none"></div>
 
-    <div id="game-finished-menu"></div>
+    <div id="game-finished-menu" style="display: none"></div>
 
-    <div id="level-create-menu"></div>
+    <div id="level-create-menu" style="display: none"></div>
 
-    <div id="level-select-menu"></div>
+    <div id="level-select-menu" style="display: none"></div>
 
     <script src="js/three.js"></script>
     <script src="js/Collision.js"></script>

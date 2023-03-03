@@ -31,6 +31,11 @@ class Bat
         this.#b_CanMove = b_NewValue;
     }
 
+    set_position(vec3_NewPosition)
+    {
+        this.#m_Mesh.position.x = vec3_NewPosition.x;
+    }
+
     update(f_DeltaTime, m_FrameBoundingBoxes) 
     {
         // Handle player input

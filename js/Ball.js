@@ -31,7 +31,6 @@ class Ball
         this.reset_location(m_BatBoundingBox);
     }
 
-
     // Called from Collision.js handle_bricks_collision()
     bounce_off_brick(m_ObjectCollidedWithBoundingBox)
     {
@@ -116,13 +115,25 @@ class Ball
 
     }
 
+    // Called from MainMenuSimulation's update to make bat follow ball
+    get_position_vector()
+    {
+        return this.#m_Sphere.position;
+    }
+
     // Called from Game.update()
     launch_ball()
     {
         this.#b_Launched = true;
         this.#vec3_Velocity.y = this.#f_Speed;
+
+        let f_PercentageOfBatBeforeLandingLocation = Math.random() * 2;
+        let f_AngleToBounceAt = -1 * Math.PI * 0.5 * f_PercentageOfBatBeforeLandingLocation;
+        this.#vec3_Velocity.x = this.#f_Speed * Math.cos(f_AngleToBounceAt);
+        this.#vec3_Velocity.y = this.#f_Speed * Math.sin(f_AngleToBounceAt);
     }
 
+    // Called from Game.update()
     get_ball_launched()
     {
         return this.#b_Launched;
@@ -145,6 +156,7 @@ class Ball
         this.#vec3_Velocity = new THREE.Vector3(0, 0, 0);
     }
 
+    // Called from Game.update()
     check_if_in_frame()
     {
         if (this.#m_Sphere.position.y < 0)

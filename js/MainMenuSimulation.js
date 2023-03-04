@@ -94,7 +94,7 @@ class MainMenuSimulation
         {
             for (let column = 0; column < 12; column++)
             {
-                let m_Brick = new Brick(this.#m_SceneThreejs, 1, new THREE.Vector2(column, row));
+                let m_Brick = new Brick(this.#m_SceneThreejs, 8, new THREE.Vector2(column, row));
                 this.#a_BrickObjects.push(m_Brick);
             }
         }

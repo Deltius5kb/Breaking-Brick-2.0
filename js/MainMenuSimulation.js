@@ -101,7 +101,7 @@ class MainMenuSimulation
 
         // Make other objects
         this.#m_Bat = new Bat(this.#m_SceneThreejs);
-        this.#m_Ball = new Ball(this.#m_SceneThreejs, this.#m_Bat.get_bounding_box());
+        this.#m_Ball = new SimulationBall(this.#m_SceneThreejs, this.#m_Bat.get_bounding_box());
         this.#m_Ball.launch_ball();
     }
 

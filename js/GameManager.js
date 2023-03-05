@@ -47,6 +47,13 @@ class GameManager
                 hide_html_element("level-select-menu");
                 unhide_html_element("level-create-menu");
             }
+
+            if (ButtonStates.BackLevelCreate)
+            {
+                ButtonStates.BackLevelCreate = false;
+                hide_html_element("level-create-menu");
+                unhide_html_element("level-select-menu");
+            }
         }
 
         if (this.#b_MainMenuActive)

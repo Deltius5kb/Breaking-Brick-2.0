@@ -34,3 +34,15 @@ document.getElementById("level-select-create").onclick = function ()
     console.log("create button pressed");
     ButtonStates.CreateLevelSelect = true;
 };
+
+document.getElementById("level-create-back").onclick = function ()
+{
+    console.log("back button pressed");
+    ButtonStates.BackLevelCreate = true;
+};
+
+document.getElementById("level-create-save").onclick = function ()
+{
+    console.log("save button pressed");
+    ButtonStates.SaveLevelCreate = true;
+};

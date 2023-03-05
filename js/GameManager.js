@@ -7,13 +7,17 @@ class GameManager
     #m_MainMenuSimulationObject;
 
     #b_MainMenuActive;
+    #b_GameActive;
     #b_LevelCreateActive;
+    #b_SavingLevel;
 
+    #a_LevelToLoadBricks;
     #a_LevelCreationBricks;
 
     constructor() 
     {
         this.#a_LevelCreationBricks = [];
+        this.#a_LevelToLoadBricks = [];
 
         this.#m_MainMenuSimulationObject = new MainMenuSimulation();
         this.#m_GameObject = new Game();
@@ -21,7 +25,9 @@ class GameManager
         unhide_html_element("main-menu");
         unhide_html_element("main-menu-canvas");
         this.#b_MainMenuActive = true;
+        this.#b_GameActive = false;
         this.#b_LevelCreateActive = false;
+        this.#b_SavingLevel = false;
 
         ButtonStates.PlayMainMenu = true;
         ButtonStates.CreateLevelSelect = true;
@@ -46,10 +52,19 @@ class GameManager
             if (ButtonStates.BackLevelSelect)
             {
                 ButtonStates.BackLevelSelect = false;
+
                 hide_html_element("level-select-menu");
-                unhide_html_element("main-menu");
-                unhide_html_element("main-menu-canvas");
-                this.#b_MainMenuActive = true;
+                if (!this.#b_SavingLevel)
+                {
+                    unhide_html_element("main-menu");
+                    unhide_html_element("main-menu-canvas");
+                    this.#b_MainMenuActive = true;
+                }
+                else 
+                {
+                    unhide_html_element("level-create-menu");
+                    this.#b_SavingLevel = false;
+                }
             }
 
             if (ButtonStates.CreateLevelSelect)
@@ -72,6 +87,37 @@ class GameManager
             {
                 ButtonStates.SaveLevelCreate = false;
                 this.#b_LevelCreateActive = false;
+                hide_html_element("level-create-menu");
+                hide_html_element("level-select-create");
+                unhide_html_element("level-select-menu");
+                this.#b_SavingLevel = true;
+            }
+        }
+
+        // Check level select buttons
+        {
+            // If player selected a level
+            if (m_SELECTED_LEVEL.i_Level != 0)
+            {
+                // If player saving level
+                if (this.#b_SavingLevel)
+                {
+                    save_level_to_localstorage(`${m_SELECTED_LEVEL.i_Level}`, this.#a_LevelCreationBricks);
+                    this.#a_LevelCreationBricks = [];
+                    this.#b_SavingLevel = false;
+                    unhide_html_element("level-select-create");
+                }
+
+                else
+                {
+                    this.#a_LevelToLoadBricks = load_level_from_localstorage(`${m_SELECTED_LEVEL.i_Level}`);
+                    this.#m_GameObject.set_level_array(this.#a_LevelToLoadBricks);
+                    this.#b_GameActive = true;
+                    hide_html_element("level-select-menu");
+                    unhide_html_element("game-ui");
+                    unhide_html_element("game-canvas");
+                }
+                m_SELECTED_LEVEL.i_Level = 0;
             }
         }
 
@@ -80,6 +126,13 @@ class GameManager
         {
             this.#m_MainMenuSimulationObject.update(this.#f_DeltaTime);
             this.#m_MainMenuSimulationObject.draw();
+        }
+
+        // If in game
+        if (this.#b_GameActive)
+        {
+            this.#m_GameObject.update(this.#f_DeltaTime);
+            this.#m_GameObject.draw();
         }
 
         // If player is on level creation screen
@@ -100,8 +153,6 @@ class GameManager
                             i_Health: i_ActiveBrickHealth
                         };
                         this.#a_LevelCreationBricks.push(m_ThisBrick);
-                        //TODO fix bricks colour not changing
-                        m_ClickedBrick.style.backgroundColour = d_ColoursHTMLIndexed[i_ActiveBrickHealth];
                     }
 
                     // If selected brick is deletion tool, removes brick that was clicked on

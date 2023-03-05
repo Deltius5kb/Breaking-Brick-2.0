@@ -49,6 +49,25 @@ const d_ColoursHTMLIndexed = {
     8: d_ColoursHTML["Green"]
 };
 
+function set_all_levels_to_default_state()
+{
+    let a_LevelBricks = [];
+    for (let i = 0; i < 12; i++)
+    {
+        let m_Brick = {
+            vec2_GridLocation: new THREE.Vector2(i, 0),
+            i_Health: 2
+        };
+        a_LevelBricks.push(m_Brick);
+    }
+
+    for (let i = 0; i < 62; i++)
+    {
+        // Make default level
+        save_level_to_localstorage(`${i}`, a_LevelBricks);
+    }
+}
+
 function save_level_to_localstorage(s_LevelName, a_Bricks)
 {
     let s_Json = JSON.stringify(a_Bricks);

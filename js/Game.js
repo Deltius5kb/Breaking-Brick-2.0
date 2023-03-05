@@ -97,16 +97,16 @@ class Game
             this.#m_SceneThreejs.add(this.#m_Frame.ceiling, this.#m_Frame.left, this.#m_Frame.right, this.#m_Frame.background);
         }
 
-        // Makes array of bricks
         this.#a_BrickObjects = [];
-        for (let row = 0; row < 5; row++)
-        {
-            for (let column = 0; column < 12; column++)
-            {
-                let m_Brick = new Brick(this.#m_SceneThreejs, 1, new THREE.Vector2(column, row));
-                this.#a_BrickObjects.push(m_Brick);
-            }
-        }
+        // // Makes array of bricks
+        // for (let row = 0; row < 5; row++)
+        // {
+        //     for (let column = 0; column < 12; column++)
+        //     {
+        //         let m_Brick = new Brick(this.#m_SceneThreejs, 1, new THREE.Vector2(column, row));
+        //         this.#a_BrickObjects.push(m_Brick);
+        //     }
+        // }
 
         // Make other objects
         this.#m_Bat = new Bat(this.#m_SceneThreejs);
@@ -154,7 +154,16 @@ class Game
 
     set_level_array(a_NewBricks)
     {
-        this.#a_BrickObjects = a_NewBricks;
+        // Empties array of bricks and removes them from the scene
+        for (let i = 0; i < this.#a_BrickObjects.length; i++)
+        {
+            this.#a_BrickObjects[i].destroy(this.#m_SceneThreejs);
+        }
+
+        for (let i = 0; i < a_NewBricks.length; i++)
+        {
+            let m_Brick = new Brick(this.#m_SceneThreejs, a_NewBricks[i].i_Health, a_NewBricks[i].vec2_GridLocation);
+        }
     }
 
     draw() 

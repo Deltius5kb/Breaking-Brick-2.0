@@ -152,6 +152,11 @@ class Game
         }
     }
 
+    set_level_array(a_NewBricks)
+    {
+        this.#a_BrickObjects = a_NewBricks;
+    }
+
     draw() 
     {
         this.#m_RendererThreejs.render(this.#m_SceneThreejs, this.#m_CameraThreejs);

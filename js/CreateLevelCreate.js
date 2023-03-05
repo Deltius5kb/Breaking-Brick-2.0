@@ -19,6 +19,7 @@ for (let row = 0; row < 6; row++)
             let y = Number(event.currentTarget.getAttribute("row"));
             a_Click = [x, y];
             m_ClickedBrick = event.currentTarget;
+            m_ClickedBrick.style.backgroundColor = d_ColoursHTMLIndexed[Number(m_SelectedBrick.getAttribute("health"))];
             console.log(a_Click);
         };
         element.appendChild(m_ThisBrick);

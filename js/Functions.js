@@ -49,6 +49,17 @@ const d_ColoursHTMLIndexed = {
     8: d_ColoursHTML["Green"]
 };
 
+function save_level_to_localstorage(s_LevelName, a_Bricks)
+{
+    let s_Json = JSON.stringify(a_Bricks);
+    localStorage.setItem(s_LevelName, s_Json);
+}
+
+function load_level_from_localstorage(s_LevelName)
+{
+    return JSON.parse(localStorage.getItem(s_LevelName));
+}
+
 // Used to convert index into number for css class ids in level select scene
 function convert_int_between_1_and_6_to_word(i_Integer)
 {

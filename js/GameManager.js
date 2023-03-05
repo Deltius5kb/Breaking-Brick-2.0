@@ -31,6 +31,7 @@ class GameManager
                 hide_html_element("main-menu");
                 hide_html_element("main-menu-canvas");
                 unhide_html_element("level-select-menu");
+                this.#b_MainMenuActive = false;
             }
 
             if (ButtonStates.BackLevelSelect)
@@ -39,6 +40,7 @@ class GameManager
                 hide_html_element("level-select-menu");
                 unhide_html_element("main-menu");
                 unhide_html_element("main-menu-canvas");
+                this.#b_MainMenuActive = true;
             }
 
             if (ButtonStates.CreateLevelSelect)

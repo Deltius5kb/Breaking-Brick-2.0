@@ -11,6 +11,34 @@ const d_Colours = {
     "White": { color: 0xffffff }
 }
 
+// Used to convert index into number for css class ids in level select scene
+function convert_int_between_1_and_6_to_word(i_Integer)
+{
+    let s_String;
+    switch (i_Integer)
+    {
+        case 1:
+            s_String = "one";
+            break;
+        case 2:
+            s_String = "two";
+            break;
+        case 3:
+            s_String = "three";
+            break;
+        case 4:
+            s_String = "four";
+            break;
+        case 5:
+            s_String = "five";
+            break;
+        case 6:
+            s_String = "six";
+            break;
+    }
+    return s_String;
+}
+
 function hide_html_element(s_DivID)
 {
     document.getElementById(s_DivID).style.display = "none";

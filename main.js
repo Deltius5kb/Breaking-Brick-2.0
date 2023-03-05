@@ -12,7 +12,6 @@ function animate(time)
     requestAnimationFrame(animate);
 }
 
-
 const m_LivesImage = document.createElement("img");
 m_LivesImage.setAttribute("src", "textures/lives.png");
 m_LivesImage.setAttribute("width", 72);

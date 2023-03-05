@@ -22,12 +22,15 @@ class GameManager
         this.#m_MainMenuSimulationObject = new MainMenuSimulation();
         this.#m_GameObject = new Game();
 
-        unhide_html_element("main-menu");
-        unhide_html_element("main-menu-canvas");
         this.#b_MainMenuActive = true;
         this.#b_GameActive = false;
         this.#b_LevelCreateActive = false;
         this.#b_SavingLevel = false;
+
+        // unhide_html_element("main-menu");
+        // unhide_html_element("main-menu-canvas");
+
+        unhide_html_element("pause-menu");
     }
 
     // Called every frame from main.js animate()

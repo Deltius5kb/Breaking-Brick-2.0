@@ -35,6 +35,7 @@ class GameManager
 
             if (ButtonStates.BackLevelSelect)
             {
+                ButtonStates.BackLevelSelect = false;
                 hide_html_element("level-select-menu");
                 unhide_html_element("main-menu");
                 unhide_html_element("main-menu-canvas");

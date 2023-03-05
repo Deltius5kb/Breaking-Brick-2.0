@@ -30,9 +30,8 @@ class GameManager
         this.#b_LevelCreateActive = false;
         this.#b_SavingLevel = false;
 
-        // unhide_html_element("main-menu");
-        // unhide_html_element("main-menu-canvas");
-        unhide_html_element("game-finished-menu");
+        unhide_html_element("main-menu");
+        unhide_html_element("main-menu-canvas");
     }
 
     // Called every frame from main.js animate()

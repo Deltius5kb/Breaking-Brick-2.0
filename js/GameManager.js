@@ -27,10 +27,8 @@ class GameManager
         this.#b_LevelCreateActive = false;
         this.#b_SavingLevel = false;
 
-        // unhide_html_element("main-menu");
-        // unhide_html_element("main-menu-canvas");
-
-        unhide_html_element("pause-menu");
+        unhide_html_element("main-menu");
+        unhide_html_element("main-menu-canvas");
     }
 
     // Called every frame from main.js animate()
@@ -38,97 +36,105 @@ class GameManager
     {
         this.#get_delta_time(f_Time);
 
-        // Check buttons
+        this.#check_buttons();
+        this.#check_level_select_buttons();
+        this.#update_active_scene();
+        this.#update_level_creator();
+    }
+
+    #check_buttons()
+    {
+        if (ButtonStates.PlayMainMenu)
         {
-            if (ButtonStates.PlayMainMenu)
+            ButtonStates.PlayMainMenu = false;
+            hide_html_element("main-menu");
+            hide_html_element("main-menu-canvas");
+            unhide_html_element("level-select-menu");
+            this.#b_MainMenuActive = false;
+        }
+
+        if (ButtonStates.BackLevelSelect)
+        {
+            ButtonStates.BackLevelSelect = false;
+
+            hide_html_element("level-select-menu");
+            if (!this.#b_SavingLevel)
             {
-                ButtonStates.PlayMainMenu = false;
-                hide_html_element("main-menu");
-                hide_html_element("main-menu-canvas");
-                unhide_html_element("level-select-menu");
-                this.#b_MainMenuActive = false;
+                unhide_html_element("main-menu");
+                unhide_html_element("main-menu-canvas");
+                this.#b_MainMenuActive = true;
             }
-
-            if (ButtonStates.BackLevelSelect)
+            else 
             {
-                ButtonStates.BackLevelSelect = false;
-
-                hide_html_element("level-select-menu");
-                if (!this.#b_SavingLevel)
-                {
-                    unhide_html_element("main-menu");
-                    unhide_html_element("main-menu-canvas");
-                    this.#b_MainMenuActive = true;
-                }
-                else 
-                {
-                    unhide_html_element("level-create-menu");
-                    this.#b_SavingLevel = false;
-                }
-            }
-
-            if (ButtonStates.CreateLevelSelect)
-            {
-                ButtonStates.CreateLevelSelect = false;
-                hide_html_element("level-select-menu");
                 unhide_html_element("level-create-menu");
-                this.#b_LevelCreateActive = true;
-
-                // Reset level selection 
-                document.getElementById("bricks").remove();
-                let m_BrickDiv = document.createElement("div");
-                m_BrickDiv.setAttribute("id", "bricks");
-                document.getElementById("level-create-menu").appendChild(m_BrickDiv);
-                make_level_creation_bricks();
-            }
-
-            if (ButtonStates.BackLevelCreate)
-            {
-                ButtonStates.BackLevelCreate = false;
-                hide_html_element("level-create-menu");
-                unhide_html_element("level-select-menu");
-                this.#b_LevelCreateActive = false;
-            }
-
-            if (ButtonStates.SaveLevelCreate)
-            {
-                ButtonStates.SaveLevelCreate = false;
-                this.#b_LevelCreateActive = false;
-                hide_html_element("level-create-menu");
-                hide_html_element("level-select-create");
-                unhide_html_element("level-select-menu");
-                this.#b_SavingLevel = true;
+                this.#b_SavingLevel = false;
             }
         }
 
-        // Check level select buttons
+        if (ButtonStates.CreateLevelSelect)
         {
-            // If player selected a level
-            if (m_SELECTED_LEVEL.i_Level != 0)
-            {
-                // If player saving level
-                if (this.#b_SavingLevel)
-                {
-                    save_level_to_localstorage(`${m_SELECTED_LEVEL.i_Level}`, this.#a_LevelCreationBricks);
-                    this.#a_LevelCreationBricks = [];
-                    this.#b_SavingLevel = false;
-                    unhide_html_element("level-select-create");
-                }
+            ButtonStates.CreateLevelSelect = false;
+            hide_html_element("level-select-menu");
+            unhide_html_element("level-create-menu");
+            this.#b_LevelCreateActive = true;
 
-                else
-                {
-                    this.#a_LevelToLoadBricks = load_level_from_localstorage(`${m_SELECTED_LEVEL.i_Level}`);
-                    this.#m_GameObject.set_level_array(this.#a_LevelToLoadBricks);
-                    this.#b_GameActive = true;
-                    update_level_div(m_SELECTED_LEVEL.i_Level);
-                    hide_html_element("level-select-menu");
-                    unhide_html_element("game-ui");
-                    unhide_html_element("game-canvas");
-                }
-                m_SELECTED_LEVEL.i_Level = 0;
-            }
+            // Reset level selection 
+            document.getElementById("bricks").remove();
+            let m_BrickDiv = document.createElement("div");
+            m_BrickDiv.setAttribute("id", "bricks");
+            document.getElementById("level-create-menu").appendChild(m_BrickDiv);
+            make_level_creation_bricks();
         }
 
+        if (ButtonStates.BackLevelCreate)
+        {
+            ButtonStates.BackLevelCreate = false;
+            hide_html_element("level-create-menu");
+            unhide_html_element("level-select-menu");
+            this.#b_LevelCreateActive = false;
+        }
+
+        if (ButtonStates.SaveLevelCreate)
+        {
+            ButtonStates.SaveLevelCreate = false;
+            this.#b_LevelCreateActive = false;
+            hide_html_element("level-create-menu");
+            hide_html_element("level-select-create");
+            unhide_html_element("level-select-menu");
+            this.#b_SavingLevel = true;
+        }
+    }
+
+    #check_level_select_buttons()
+    {
+        // If player selected a level
+        if (m_SELECTED_LEVEL.i_Level != 0)
+        {
+            // If player saving level
+            if (this.#b_SavingLevel)
+            {
+                save_level_to_localstorage(`${m_SELECTED_LEVEL.i_Level}`, this.#a_LevelCreationBricks);
+                this.#a_LevelCreationBricks = [];
+                this.#b_SavingLevel = false;
+                unhide_html_element("level-select-create");
+            }
+
+            else
+            {
+                this.#a_LevelToLoadBricks = load_level_from_localstorage(`${m_SELECTED_LEVEL.i_Level}`);
+                this.#m_GameObject.set_level_array(this.#a_LevelToLoadBricks);
+                this.#b_GameActive = true;
+                update_level_div(m_SELECTED_LEVEL.i_Level);
+                hide_html_element("level-select-menu");
+                unhide_html_element("game-ui");
+                unhide_html_element("game-canvas");
+            }
+            m_SELECTED_LEVEL.i_Level = 0;
+        }
+    }
+
+    #update_active_scene()
+    {
         // If on main menu
         if (this.#b_MainMenuActive)
         {
@@ -142,7 +148,10 @@ class GameManager
             this.#m_GameObject.update(this.#f_DeltaTime);
             this.#m_GameObject.draw();
         }
+    }
 
+    #update_level_creator()
+    {
         // If player is on level creation screen
         if (this.#b_LevelCreateActive)
         {

@@ -7,6 +7,7 @@ class GameManager
     #m_MainMenuSimulationObject;
 
     #b_MainMenuActive;
+    #b_LevelCreateActive;
 
     constructor() 
     {
@@ -16,9 +17,10 @@ class GameManager
         unhide_html_element("main-menu");
         unhide_html_element("main-menu-canvas");
         this.#b_MainMenuActive = true;
+        this.#b_LevelCreateActive = false;
 
-        ButtonStates.PlayMainMenu = true;
-        ButtonStates.CreateLevelSelect = true;
+        // ButtonStates.PlayMainMenu = true;
+        // ButtonStates.CreateLevelSelect = true;
     }
 
     // Called every frame from main.js animate()
@@ -51,6 +53,7 @@ class GameManager
                 ButtonStates.CreateLevelSelect = false;
                 hide_html_element("level-select-menu");
                 unhide_html_element("level-create-menu");
+                this.#b_LevelCreateActive = true;
             }
 
             if (ButtonStates.BackLevelCreate)
@@ -58,13 +61,26 @@ class GameManager
                 ButtonStates.BackLevelCreate = false;
                 hide_html_element("level-create-menu");
                 unhide_html_element("level-select-menu");
+                this.#b_LevelCreateActive = false;
+            }
+
+            if (ButtonStates.SaveLevelCreate)
+            {
+                ButtonStates.SaveLevelCreate = false;
+                this.#b_LevelCreateActive = false;
             }
         }
 
+        // If on main menu
         if (this.#b_MainMenuActive)
         {
             this.#m_MainMenuSimulationObject.update(this.#f_DeltaTime);
             this.#m_MainMenuSimulationObject.draw();
+        }
+
+        // If player is on level creation screen
+        if (this.#b_LevelCreateActive)
+        {
         }
     }
 

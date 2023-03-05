@@ -48,7 +48,18 @@ let div = document.getElementById("selection");
 // Adds selection bricks themselves
 for (let i_Health = -1; i_Health < 9; i_Health++)
 {
-    let s_Colour = get_color_from_health(i_Health);
+    let s_Colour;
+    // Gets colour of this brick
+    {
+        if (i_Health == -1)
+        {
+            s_Colour = "#ffffff";
+        }
+        else
+        {
+            s_Colour = d_ColoursHTMLIndexed[i_Health];
+        }
+    }
 
     let m_BrickDesc;
     // Make brick description

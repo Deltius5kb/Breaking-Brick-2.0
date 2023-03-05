@@ -9,47 +9,45 @@ const d_Colours = {
     "Orange": { color: 0xFF834B },
     "Grey": { color: 0x808080 },
     "White": { color: 0xffffff }
-}
+};
 
-// Used to get s_Colour from brick health
-function convert_health_to_color(i_Health)
-{
-    let s_Colour;
-    switch (i_Health)
-    {
-        default:
-            s_Colour = d_Colours["Grey"];
-            break;
-        case 1:
-            s_Colour = d_Colours["Purple"];
-            break;
-        case 2:
-            s_Colour = d_Colours["Lime"];
-            break;
-        case 3:
-            s_Colour = d_Colours["Pink"];
-            break;
-        case 4:
-            s_Colour = d_Colours["Yellow"];
-            break;
-        case 5:
-            s_Colour = d_Colours["Hot Pink"];
-            break;
-        case 6:
-            s_Colour = d_Colours["Orange"];
-            break;
-        case 7:
-            s_Colour = d_Colours["Blue"];
-            break;
-        case 8:
-            s_Colour = d_Colours["Green"];
-            break;
-        case -1:
-            s_Colour = "#ffffff";
-            break;
-    }
-    return s_Colour;
-}
+const d_ColoursHTML = {
+    "Blue": "#89a9ff",
+    "Pink": "#E589FF",
+    "Lime": "#A3FF89",
+    "Green": "#89FFBA",
+    "Purple": "#898DFF",
+    "Hot Pink": "#FF89B3",
+    "Yellow": "#FFED89",
+    "Orange": "#FF834B",
+    "Grey": "#808080",
+    "White": "#ffffff"
+};
+
+// Colours for threejs
+const d_ColoursTHREE = {
+    0: d_Colours["Grey"],
+    1: d_Colours["Purple"],
+    2: d_Colours["Lime"],
+    3: d_Colours["Pink"],
+    4: d_Colours["Yellow"],
+    5: d_Colours["Hot Pink"],
+    6: d_Colours["Orange"],
+    7: d_Colours["Blue"],
+    8: d_Colours["Green"]
+};
+
+const d_ColoursHTMLIndexed = {
+    0: d_ColoursHTML["Grey"],
+    1: d_ColoursHTML["Purple"],
+    2: d_ColoursHTML["Lime"],
+    3: d_ColoursHTML["Pink"],
+    4: d_ColoursHTML["Yellow"],
+    5: d_ColoursHTML["Hot Pink"],
+    6: d_ColoursHTML["Orange"],
+    7: d_ColoursHTML["Blue"],
+    8: d_ColoursHTML["Green"]
+};
 
 // Used to convert index into number for css class ids in level select scene
 function convert_int_between_1_and_6_to_word(i_Integer)
@@ -130,45 +128,6 @@ function update_lives_div(i_NewHealth)
 function get_color_material(str_Color)
 {
     return new THREE.MeshStandardMaterial(d_Colours[str_Color]);
-}
-
-function get_color_from_health(i_Health)
-{
-    let str_Color;
-    switch (i_Health)
-    {
-        default:
-            str_Color = "Grey";
-            break;
-        case 1:
-            str_Color = "Purple";
-            break;
-        case 2:
-            str_Color = "Lime";
-            break;
-        case 3:
-            str_Color = "Pink";
-            break;
-        case 4:
-            str_Color = "Yellow";
-            break;
-        case 5:
-            str_Color = "Hot Pink";
-            break;
-        case 6:
-            str_Color = "Orange";
-            break;
-        case 7:
-            str_Color = "Blue";
-            break;
-        case 8:
-            str_Color = "Green";
-            break;
-        case -1:
-            str_Color = "#ffffff";
-            break;
-    }
-    return str_Color;
 }
 
 function do_boundingboxes_collide(m_BoundingBox1, m_BoundingBox2)

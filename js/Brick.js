@@ -16,7 +16,7 @@ class Brick
         // Make cuboid
         {
             let m_BoxGeometry = new THREE.BoxGeometry(120, 60, 60);
-            let m_Material = get_color_material(get_color_from_health(this.#i_Health));
+            let m_Material = new THREE.MeshStandardMaterial(d_ColoursTHREE[this.#i_Health]);
             this.#m_Mesh = new THREE.Mesh(m_BoxGeometry, m_Material);
             this.#m_Mesh.position.set(vec2_GRID_START_LOCATION.x + vec2_Location.x * 140, vec2_GRID_START_LOCATION.y - this.#vec2_Location.y * 80, 0);
             m_SceneThreejs.add(this.#m_Mesh);
@@ -29,7 +29,7 @@ class Brick
     hit()
     {
         this.#i_Health -= 1;
-        this.#m_Mesh.material = get_color_material(get_color_from_health(this.#i_Health));
+        this.#m_Mesh.material = new THREE.MeshStandardMaterial(d_ColoursTHREE[this.#i_Health]);
     }
 
     // Called from Collision.js handle_bricks_collision()

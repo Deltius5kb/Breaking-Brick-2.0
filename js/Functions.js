@@ -131,6 +131,12 @@ function update_timer_div(f_Time)
     document.getElementById("timer").innerHTML = str_Timer;
 }
 
+function update_level_div(i_Level)
+{
+    let str_Level = `LEVEL:${i_Level}`;
+    document.getElementById("level").innerHTML = str_Level;
+}
+
 function update_score_div(i_Score)
 {
     let str_Score = i_Score.toString();

@@ -172,6 +172,16 @@ Game ui
   position: fixed;
 }
 
+#level {
+  position: fixed;
+  z-index: 100;
+  top: 0px;
+  left: 170px;
+  color: #ffffff;
+  font-family: upheavtt;
+  font-size: 72px;
+}
+
 #lives {
   position: fixed;
   z-index: 100;

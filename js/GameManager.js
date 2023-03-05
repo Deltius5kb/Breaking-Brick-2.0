@@ -28,9 +28,6 @@ class GameManager
         this.#b_GameActive = false;
         this.#b_LevelCreateActive = false;
         this.#b_SavingLevel = false;
-
-        ButtonStates.PlayMainMenu = true;
-        ButtonStates.CreateLevelSelect = true;
     }
 
     // Called every frame from main.js animate()
@@ -113,6 +110,7 @@ class GameManager
                     this.#a_LevelToLoadBricks = load_level_from_localstorage(`${m_SELECTED_LEVEL.i_Level}`);
                     this.#m_GameObject.set_level_array(this.#a_LevelToLoadBricks);
                     this.#b_GameActive = true;
+                    update_level_div(m_SELECTED_LEVEL.i_Level);
                     hide_html_element("level-select-menu");
                     unhide_html_element("game-ui");
                     unhide_html_element("game-canvas");

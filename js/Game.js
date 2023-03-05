@@ -163,6 +163,7 @@ class Game
         for (let i = 0; i < a_NewBricks.length; i++)
         {
             let m_Brick = new Brick(this.#m_SceneThreejs, a_NewBricks[i].i_Health, a_NewBricks[i].vec2_GridLocation);
+            this.#a_BrickObjects.push(m_Brick);
         }
     }
 

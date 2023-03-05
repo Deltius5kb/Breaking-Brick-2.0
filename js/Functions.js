@@ -11,6 +11,16 @@ const d_Colours = {
     "White": { color: 0xffffff }
 }
 
+function hide_html_element(s_DivID)
+{
+    document.getElementById(s_DivID).style.display = "none";
+}
+
+function unhide_html_element(s_DivID)
+{
+    document.getElementById(s_DivID).style.display = "block";
+}
+
 function update_timer_div(f_Time)
 {
     f_Time = f_Time / 1000;

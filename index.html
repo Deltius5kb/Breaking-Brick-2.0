@@ -6,8 +6,8 @@
   </head>
 
   <body>
-    <div id="main-menu">
-      <canvas id="main-menu-canvas"></canvas>
+    <div id="main-menu" style="display: none">
+      <canvas id="main-menu-canvas" style="display: none"></canvas>
       <img id="hank" src="textures/hank.png" />
       <img id="breaking-brick-logo" src="textures/Title screen.png" />
       <div id="main-menu-buttons">
@@ -20,8 +20,41 @@
       </div>
     </div>
 
+    <div id="level-select-menu" style="display: none">
+      <a id="level-select-back" href="#" style="--clr: #6eff3e"
+        ><span>6ck</span><i></i
+      ></a>
+      <a id="level-select-create" href="#" style="--clr: #6eff3e"
+        ><span>,eate</span><i></i
+      ></a>
+
+      <div id="table" class="table">
+        <!-- <div class="period one">
+            <div class="period-inner">
+              <div class="title">L1</div>
+              <div class="desc">Level1</div>
+            </div>
+          </div>
+    
+          <div class="period one">
+            <div class="period-inner">
+              <div class="title">L3</div>
+              <div class="desc">Level3</div>
+            </div>
+          </div>
+    
+    
+          <div class="period two">
+            <div class="period-inner">
+              <div class="title">L2</div>
+              <div class="desc">Level2</div>
+            </div>
+          </div> -->
+      </div>
+    </div>
+
     <div id="game-ui" style="display: none">
-      <canvas id="game-canvas"></canvas>
+      <canvas id="game-canvas" style="display: none"></canvas>
 
       <div id="lives"></div>
       <div id="score">SCORE:0000</div>
@@ -34,9 +67,8 @@
 
     <div id="level-create-menu" style="display: none"></div>
 
-    <div id="level-select-menu" style="display: none"></div>
-
     <script src="js/three.js"></script>
+    <script src="js/Button.js"></script>
     <script src="js/Collision.js"></script>
     <script src="js/Functions.js"></script>
     <script src="js/Controls.js"></script>

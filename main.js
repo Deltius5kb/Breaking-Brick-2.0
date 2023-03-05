@@ -9,7 +9,6 @@ Use hungarian notation for everything, can tell properties apart because they us
 function animate(time)
 {
     m_GameManager.update(time);
-    m_GameManager.draw();
     requestAnimationFrame(animate);
 }
 
@@ -30,9 +29,4 @@ window.onload = function ()
     {
         console.log("hello");
     }
-}
-
-function hello()
-{
-
 }

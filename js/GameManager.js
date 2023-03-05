@@ -8,6 +8,7 @@ class GameManager
 
     #b_MainMenuActive;
     #b_GameActive;
+    #b_GamePaused;
     #b_LevelCreateActive;
     #b_SavingLevel;
 
@@ -24,6 +25,8 @@ class GameManager
 
         this.#b_MainMenuActive = true;
         this.#b_GameActive = false;
+        this.#b_GamePaused = false;
+
         this.#b_LevelCreateActive = false;
         this.#b_SavingLevel = false;
 
@@ -103,6 +106,15 @@ class GameManager
             unhide_html_element("level-select-menu");
             this.#b_SavingLevel = true;
         }
+
+        if (ButtonStates.BackPauseMenu)
+        {
+            ButtonStates.BackPauseMenu = false;
+            this.#b_GamePaused = false;
+            hide_html_element("pause-menu");
+            unhide_html_element("game-ui");
+            unhide_html_element("game-canvas");
+        }
     }
 
     #check_level_select_buttons()
@@ -145,8 +157,30 @@ class GameManager
         // If in game
         if (this.#b_GameActive)
         {
-            this.#m_GameObject.update(this.#f_DeltaTime);
-            this.#m_GameObject.draw();
+            if (!this.#b_GamePaused)
+            {
+                this.#m_GameObject.update(this.#f_DeltaTime);
+                this.#m_GameObject.draw();
+            }
+            // If game needs to be paused/unpaused
+            if (KeyStates.esc)
+            {
+                KeyStates.esc = false;
+                if (this.#b_GamePaused)
+                {
+                    this.#b_GamePaused = false;
+                    hide_html_element("pause-menu");
+                    unhide_html_element("game-ui");
+                    unhide_html_element("game-canvas");
+                }
+                else
+                {
+                    this.#b_GamePaused = true;
+                    unhide_html_element("pause-menu");
+                    hide_html_element("game-ui");
+                    hide_html_element("game-canvas");
+                }
+            }
         }
     }
 
@@ -193,7 +227,6 @@ class GameManager
         }
     }
 
-    // Called from update() every frame 
     #get_delta_time(f_Time)
     {
         this.#f_DeltaTime = f_Time - this.#f_TimeAtPreviousFrame;

@@ -5,7 +5,7 @@ const ButtonStates = {
     CreateLevelSelect: false,
     BackLevelCreate: false,
     SaveLevelCreate: false,
-    QuitPauseMenu: false,
+    BackPauseMenu: false,
     ContinuePauseMenu: false,
     SettingsPauseMenu: false,
     BackFinishedMenu: false
@@ -45,4 +45,22 @@ document.getElementById("level-create-save").onclick = function ()
 {
     console.log("save button pressed");
     ButtonStates.SaveLevelCreate = true;
+};
+
+document.getElementById("pause-menu-back").onclick = function ()
+{
+    console.log("back button pressed");
+    ButtonStates.BackPauseMenu = true;
+};
+
+document.getElementById("pause-menu-continue").onclick = function ()
+{
+    console.log("continue button pressed");
+    ButtonStates.ContinuePauseMenu = true;
+};
+
+document.getElementById("pause-menu-settings").onclick = function ()
+{
+    console.log("settings button pressed");
+    ButtonStates.SettingsPauseMenu = true;
 };

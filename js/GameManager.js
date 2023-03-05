@@ -107,9 +107,9 @@ class GameManager
             this.#b_SavingLevel = true;
         }
 
-        if (ButtonStates.BackPauseMenu)
+        if (ButtonStates.ContinuePauseMenu)
         {
-            ButtonStates.BackPauseMenu = false;
+            ButtonStates.ContinuePauseMenu = false;
             this.#b_GamePaused = false;
             hide_html_element("pause-menu");
             unhide_html_element("game-ui");

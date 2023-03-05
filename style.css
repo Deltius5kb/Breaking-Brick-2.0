@@ -91,6 +91,9 @@ body {
   margin: 0;
 }
 
+/* 
+Main menu ui
+*/
 #main-menu-buttons {
   position: fixed;
   display: flex;
@@ -137,6 +140,24 @@ body {
   border-style: solid;
 }
 
+/* 
+Level select ui
+*/
+#level-select-back {
+  position: fixed;
+  top: 750px;
+  left: 85px;
+}
+
+#level-select-create {
+  position: fixed;
+  top: 750px;
+  left: 1590px;
+}
+
+/* 
+Game ui
+*/
 #game-canvas {
   position: fixed;
 }

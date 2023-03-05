@@ -8,7 +8,7 @@ const ButtonStates = {
     BackPauseMenu: false,
     ContinuePauseMenu: false,
     SettingsPauseMenu: false,
-    BackFinishedMenu: false
+    ContinuteFinishedMenu: false
 };
 
 document.getElementById("main-menu-play").onclick = function ()
@@ -63,4 +63,10 @@ document.getElementById("pause-menu-settings").onclick = function ()
 {
     console.log("settings button pressed");
     ButtonStates.SettingsPauseMenu = true;
+};
+
+document.getElementById("game-finished-continue").onclick = function ()
+{
+    console.log("continute button pressed");
+    ButtonStates.ContinuteFinishedMenu = true;
 };

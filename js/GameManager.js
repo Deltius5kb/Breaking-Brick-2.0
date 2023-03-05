@@ -124,6 +124,13 @@ class GameManager
             unhide_html_element("level-select-menu");
             hide_html_element("pause-menu")
         }
+
+        if (ButtonStates.ContinuteFinishedMenu)
+        {
+            ButtonStates.ContinuteFinishedMenu = false;
+            hide_html_element("game-finished-menu");
+            unhide_html_element("level-select-menu");
+        }
     }
 
     #check_level_select_buttons()

@@ -98,6 +98,73 @@ Level create ui
   left: 1300px;
 }
 
+#bricks {
+  position: fixed;
+  top: 25%;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 100px);
+  grid-template-rows: repeat(6, 50px);
+  gap: 10px;
+  margin: auto;
+  justify-content: center;
+}
+
+.brick {
+  position: relative;
+  width: 100px;
+  height: 50px;
+  background-color: white;
+  cursor: default;
+  transition: 0.2s;
+}
+
+.brick:hover {
+  transform: scale(1.1);
+  transition: 0.2s;
+}
+
+#selection {
+  position: absolute;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  top: 100px;
+  padding: 10px;
+  right: 30px;
+  border: white;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.selection-row {
+  display: flex;
+  flex-direction: row;
+  width: 210px;
+  gap: 10px;
+}
+
+.label {
+  color: white;
+  margin: auto;
+  font-size: 1.5em;
+  font-family: upheavtt;
+}
+
+.column-header {
+  margin: auto;
+  color: white;
+  font-size: 1.7em;
+  font-family: upheavtt;
+}
+
+.selected {
+  border: 5px solid white !important;
+  transition: 0.2s;
+}
+
 /* 
 Game ui
 */

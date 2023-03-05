@@ -11,6 +11,46 @@ const d_Colours = {
     "White": { color: 0xffffff }
 }
 
+// Used to get s_Colour from brick health
+function convert_health_to_color(i_Health)
+{
+    let s_Colour;
+    switch (i_Health)
+    {
+        default:
+            s_Colour = d_Colours["Grey"];
+            break;
+        case 1:
+            s_Colour = d_Colours["Purple"];
+            break;
+        case 2:
+            s_Colour = d_Colours["Lime"];
+            break;
+        case 3:
+            s_Colour = d_Colours["Pink"];
+            break;
+        case 4:
+            s_Colour = d_Colours["Yellow"];
+            break;
+        case 5:
+            s_Colour = d_Colours["Hot Pink"];
+            break;
+        case 6:
+            s_Colour = d_Colours["Orange"];
+            break;
+        case 7:
+            s_Colour = d_Colours["Blue"];
+            break;
+        case 8:
+            s_Colour = d_Colours["Green"];
+            break;
+        case -1:
+            s_Colour = "#ffffff";
+            break;
+    }
+    return s_Colour;
+}
+
 // Used to convert index into number for css class ids in level select scene
 function convert_int_between_1_and_6_to_word(i_Integer)
 {

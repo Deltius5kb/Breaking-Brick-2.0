@@ -16,6 +16,9 @@ class GameManager
         unhide_html_element("main-menu");
         unhide_html_element("main-menu-canvas");
         this.#b_MainMenuActive = true;
+
+        ButtonStates.PlayMainMenu = true;
+        ButtonStates.CreateLevelSelect = true;
     }
 
     // Called every frame from main.js animate()

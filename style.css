@@ -84,6 +84,21 @@ Level select ui
 }
 
 /* 
+Level create ui
+*/
+#level-create-back {
+  position: fixed;
+  top: 750px;
+  left: 85px;
+}
+
+#level-create-save {
+  position: fixed;
+  top: 750px;
+  left: 1300px;
+}
+
+/* 
 Game ui
 */
 #game-canvas {

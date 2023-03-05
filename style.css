@@ -1,92 +1,3 @@
-/* Got a lot of this from https://www.youtube.com/watch?v=xnltEHWWjiM */
-
-body {
-  background-color: #27282c;
-}
-
-#mainmenu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-a {
-  position: relative;
-  background: #fff;
-  color: #fff;
-  text-decoration: none;
-  font-size: 5em;
-  letter-spacing: 0.05em;
-  font-weight: 400;
-  padding: 5px 30px;
-  transition: 0.5s;
-  font-family: breakingbad;
-  text-align: center;
-}
-
-a:hover {
-  background: var(--clr);
-  color: var(--clr);
-  box-shadow: 0 0 35px var(--clr);
-  transform: scale(1.1);
-  transition: 0.2s;
-}
-
-a:before {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  background: #27282c;
-}
-
-a span {
-  position: relative;
-  z-index: 1;
-}
-
-a i {
-  position: absolute;
-  inset: 0;
-  display: block;
-}
-
-a i::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 80%;
-  width: 10px;
-  height: 4px;
-  background: #27282c;
-  transform: translateX(-50%) skewX(325deg);
-  transition: 1s;
-}
-
-a:hover i::before {
-  width: 20px;
-  left: 20%;
-}
-
-a i::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 20%;
-  width: 10px;
-  height: 4px;
-  background: #27282c;
-  transform: translateX(-50%) skewX(325deg);
-  transition: 1s;
-}
-
-a:hover i::after {
-  width: 20px;
-  left: 80%;
-}
-
-/* The rest of this is mine */
-
 body {
   margin: 0;
 }
@@ -203,4 +114,247 @@ Game ui
 @font-face {
   font-family: breakingbad;
   src: url('breakingbad.otf');
+}
+
+/* Got the periodic table css from  https://www.youtube.com/watch?v=qdwKLY45sh4&t=1146s*/
+.level-select {
+  font-family: 'Poppins', sans-serif;
+  margin: 100px;
+}
+
+.table {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(16, 100px);
+  grid-template-rows: repeat(5, 100px);
+  grid-gap: 10px;
+  margin: auto;
+  max-width: 1200px;
+  justify-content: center;
+}
+
+.period {
+  padding: 4px;
+  position: relative;
+  z-index: 1;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+.period .period-inner {
+  background: radial-gradient(
+    circle at 10% 20%,
+    #5a5c6a 0%,
+    rgb(32, 45, 58) 81.3%
+  );
+  padding: 10px 15px;
+  width: calc(100% - 30px);
+  height: calc(100% - 20px);
+  transition: inherit;
+}
+
+.period .title {
+  font: 700 26.1538px 'Poppins', sans-serif;
+  margin: 0.3em 0 0;
+}
+
+.period .desc {
+  font: 500 12px 'Poppins', sans-serif;
+  margin-top: -0.2em;
+}
+
+.period:hover {
+  transform: scale(1.12);
+  z-index: 10;
+}
+
+.period:hover .period-inner {
+  background: transparent;
+}
+
+.period:hover .title,
+.period:hover .desc {
+  -webkit-text-fill-color: #222;
+}
+
+.period:hover:after {
+  top: 105%;
+  opacity: 1;
+}
+
+.level {
+  cursor: pointer;
+}
+
+.locked .title,
+.locked .desc {
+  background: transparent !important;
+}
+
+.period:hover .title,
+.period:hover .desc {
+  -webkit-text-fill-color: transparent !important;
+}
+
+.one {
+  background: linear-gradient(to bottom right, #1bffff 0%, #2e3192 100%);
+}
+
+.one .title,
+.one .desc {
+  background: -webkit-linear-gradient(#1bffff, #2e3192);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.two {
+  background: linear-gradient(to bottom right, #fbb03b 0%, #d4145a 100%);
+}
+
+.two .title,
+.two .desc {
+  background: -webkit-linear-gradient(#fbb03b, #d4145a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.three {
+  background: linear-gradient(to bottom right, #fcee21 0%, #009245 100%);
+}
+
+.three .title,
+.three .desc {
+  background: -webkit-linear-gradient(#fcee21, #009245);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.four {
+  background: linear-gradient(to top left, #13547a 0%, #80d0c7 100%);
+}
+
+.four .title,
+.four .desc {
+  background: -webkit-linear-gradient(#13547a, #80d0c7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.five {
+  background: linear-gradient(to bottom right, #e4efe9 0%, #93a5cf 100%);
+}
+
+.five .title,
+.five .desc {
+  background: -webkit-linear-gradient(#e4efe9, #93a5cf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.empty-space-1 {
+  grid-column: 2 / span 9;
+  grid-row: 1;
+}
+
+.empty-space-2 {
+  grid-column: 4 / span 3;
+  grid-row: 2;
+}
+
+.empty-space-3 {
+  grid-column: 4 / span 3;
+  grid-row: 3;
+}
+
+.empty-space-4 {
+  grid-column: 4 / span 3;
+  grid-row: 4;
+}
+
+/* Got a lot of this from https://www.youtube.com/watch?v=xnltEHWWjiM */
+
+body {
+  background-color: #27282c;
+}
+
+#mainmenu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+a {
+  position: relative;
+  background: #fff;
+  color: #fff;
+  text-decoration: none;
+  font-size: 5em;
+  letter-spacing: 0.05em;
+  font-weight: 400;
+  padding: 5px 30px;
+  transition: 0.5s;
+  font-family: breakingbad;
+  text-align: center;
+}
+
+a:hover {
+  background: var(--clr);
+  color: var(--clr);
+  box-shadow: 0 0 35px var(--clr);
+  transform: scale(1.1);
+  transition: 0.2s;
+}
+
+a:before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: #27282c;
+}
+
+a span {
+  position: relative;
+  z-index: 1;
+}
+
+a i {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+a i::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 80%;
+  width: 10px;
+  height: 4px;
+  background: #27282c;
+  transform: translateX(-50%) skewX(325deg);
+  transition: 1s;
+}
+
+a:hover i::before {
+  width: 20px;
+  left: 20%;
+}
+
+a i::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  width: 10px;
+  height: 4px;
+  background: #27282c;
+  transform: translateX(-50%) skewX(325deg);
+  transition: 1s;
+}
+
+a:hover i::after {
+  width: 20px;
+  left: 80%;
 }

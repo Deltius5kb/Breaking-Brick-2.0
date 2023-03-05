@@ -177,6 +177,7 @@ class GameManager
             {
                 this.#m_GameObject.update(this.#f_DeltaTime);
                 this.#m_GameObject.draw();
+
             }
             // If game needs to be paused/unpaused
             if (KeyStates.esc)
@@ -196,6 +197,17 @@ class GameManager
                     hide_html_element("game-ui");
                     hide_html_element("game-canvas");
                 }
+            }
+
+            if (this.#m_GameObject.check_if_level_completed())
+            {
+                this.#b_GameActive = false;
+                this.#b_GamePaused = false;
+                hide_html_element("game-ui");
+                hide_html_element("game-canvas");
+                hide_html_element("pause-menu");
+                update_final_score_div(this.#m_GameObject.get_score());
+                unhide_html_element("game-finished-menu");
             }
         }
     }

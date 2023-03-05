@@ -117,6 +117,13 @@ function unhide_html_element(s_DivID)
     document.getElementById(s_DivID).style.display = "block";
 }
 
+function update_final_score_div(i_NewScore)
+{
+    let str_Score = i_NewScore.toString();
+    str_Score = `FINAL SCORE: ${("0".repeat(4 - str_Score.length))}${str_Score}`;
+    document.getElementById("game-finished-score").innerHTML = str_Score;
+}
+
 function update_timer_div(f_Time)
 {
     f_Time = f_Time / 1000;

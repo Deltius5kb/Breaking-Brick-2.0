@@ -152,6 +152,28 @@ class Game
         }
     }
 
+    check_if_level_completed()
+    {
+        if (this.#a_BrickObjects.length == 0)
+        {
+            return true;
+        }
+
+        for (let i = 0; i < this.#a_BrickObjects.length; i++)
+        {
+            if (this.#a_BrickObjects[i].i_Health > 0) 
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    get_score()
+    {
+        return this.#i_Score;
+    }
+
     set_level_array(a_NewBricks)
     {
         // Empties array of bricks and removes them from the scene

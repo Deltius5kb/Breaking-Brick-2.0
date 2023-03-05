@@ -2,30 +2,35 @@ let m_SelectedBrick = null;
 let m_ClickedBrick = null;
 let a_Click = [];
 
-let element = document.getElementById("bricks");
-for (let row = 0; row < 6; row++)
+function make_level_creation_bricks()
 {
-    let thisRow = [];
-    for (let column = 0; column < 12; column++)
+    let element = document.getElementById("bricks");
+    for (let row = 0; row < 6; row++)
     {
-        let m_ThisBrick = document.createElement("div");
-        m_ThisBrick.setAttribute("class", "brick");
-        m_ThisBrick.setAttribute("row", row);
-        m_ThisBrick.setAttribute("column", column);
-
-        m_ThisBrick.onclick = function (event)
+        let thisRow = [];
+        for (let column = 0; column < 12; column++)
         {
-            let x = Number(event.currentTarget.getAttribute("column"));
-            let y = Number(event.currentTarget.getAttribute("row"));
-            a_Click = [x, y];
-            m_ClickedBrick = event.currentTarget;
-            m_ClickedBrick.style.backgroundColor = d_ColoursHTMLIndexed[Number(m_SelectedBrick.getAttribute("health"))];
-            console.log(a_Click);
-        };
-        element.appendChild(m_ThisBrick);
-        thisRow.push(m_ThisBrick);
+            let m_ThisBrick = document.createElement("div");
+            m_ThisBrick.setAttribute("class", "brick");
+            m_ThisBrick.setAttribute("row", row);
+            m_ThisBrick.setAttribute("column", column);
+
+            m_ThisBrick.onclick = function (event)
+            {
+                let x = Number(event.currentTarget.getAttribute("column"));
+                let y = Number(event.currentTarget.getAttribute("row"));
+                a_Click = [x, y];
+                m_ClickedBrick = event.currentTarget;
+                m_ClickedBrick.style.backgroundColor = d_ColoursHTMLIndexed[Number(m_SelectedBrick.getAttribute("health"))];
+                console.log(a_Click);
+            };
+            element.appendChild(m_ThisBrick);
+            thisRow.push(m_ThisBrick);
+        }
     }
 }
+
+make_level_creation_bricks();
 
 let div = document.getElementById("selection");
 

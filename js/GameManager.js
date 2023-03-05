@@ -70,6 +70,13 @@ class GameManager
                 hide_html_element("level-select-menu");
                 unhide_html_element("level-create-menu");
                 this.#b_LevelCreateActive = true;
+
+                // Reset level selection 
+                document.getElementById("bricks").remove();
+                let m_BrickDiv = document.createElement("div");
+                m_BrickDiv.setAttribute("id", "bricks");
+                document.getElementById("level-create-menu").appendChild(m_BrickDiv);
+                make_level_creation_bricks();
             }
 
             if (ButtonStates.BackLevelCreate)

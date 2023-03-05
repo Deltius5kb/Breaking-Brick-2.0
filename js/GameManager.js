@@ -115,6 +115,14 @@ class GameManager
             unhide_html_element("game-ui");
             unhide_html_element("game-canvas");
         }
+
+        if (ButtonStates.BackPauseMenu)
+        {
+            ButtonStates.BackPauseMenu = false;
+            this.#b_GameActive = false;
+            unhide_html_element("level-select-menu");
+            hide_html_element("pause-menu")
+        }
     }
 
     #check_level_select_buttons()

@@ -268,6 +268,7 @@ class GameManager
     #enable_level_select_menu()
     {
         unhide_html_element("level-select-menu");
+        update_levels_unlocked();
     }
 
     #disable_level_select_menu()

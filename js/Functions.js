@@ -61,11 +61,16 @@ function set_all_levels_to_default_state()
         a_LevelBricks.push(m_Brick);
     }
 
+    let a_LevelsCompletedBooleanArray = [];
+
     for (let i = 0; i < 62; i++)
     {
         // Make default level
         save_level_to_localstorage(`${i}`, a_LevelBricks);
+        a_LevelsCompletedBooleanArray.push(false);
     }
+
+    localStorage.setItem("levels_status", JSON.stringify(a_LevelsCompletedBooleanArray));
 }
 
 function save_level_to_localstorage(s_LevelName, a_Bricks)
@@ -115,6 +120,29 @@ function hide_html_element(s_DivID)
 function unhide_html_element(s_DivID)
 {
     document.getElementById(s_DivID).style.display = "block";
+}
+
+function update_levels_unlocked()
+{
+    // Set all periods to unlocked
+    let a_LockedPeriods = document.getElementsByClassName("period-inner locked");
+    for (let i = 0; i < a_LockedPeriods.length; i++)
+    {
+        a_LockedPeriods[i].setAttribute("class", "period-inner");
+    }
+
+    let a_Periods = document.getElementsByClassName("period-inner");
+    let a_LevelsCompletedBooleans = JSON.parse(localStorage.getItem("levels_status"));
+
+    for (let i = 1; i < a_Periods.length; i++)
+    {
+        let i_LevelIndex = Number(a_Periods[i].getAttribute("level")) - 1;
+        let b_PreviousLevelCompleted = a_LevelsCompletedBooleans[i_LevelIndex - 1];
+        if (!b_PreviousLevelCompleted)
+        {
+            a_Periods[i].setAttribute("class", "period-inner locked");
+        }
+    }
 }
 
 function update_final_score_div(i_NewScore)

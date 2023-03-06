@@ -56,7 +56,16 @@ Level select ui
 */
 #level-select-menu {
   font-family: 'Poppins', sans-serif;
-  margin: 100px;
+  margin: 50px;
+}
+
+#level-select-text {
+  color: white;
+  font-family: upheavtt;
+  display: flex;
+  justify-content: center;
+  font-size: 100px;
+  height: 125px;
 }
 
 .table {

@@ -152,6 +152,13 @@ function check_if_level_unlocked(i_Level)
     return a_LevelsStatus[i_Level - 2];
 }
 
+function set_level_completed(i_Level)
+{
+    let a_LevelsStatus = JSON.parse(localStorage.getItem("levels_status"));
+    a_LevelsStatus[i_Level - 1] = true;
+    localStorage.setItem("levels_status", JSON.stringify(a_LevelsStatus));
+}
+
 // Debug tool 
 function unlocked_next_level()
 {

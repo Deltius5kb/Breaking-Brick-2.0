@@ -15,6 +15,7 @@ class Game
 
     #a_BrickObjects;
 
+    #i_ActiveLevel;
     #i_Score;
     #i_Lives;
     #f_Timer;
@@ -24,6 +25,7 @@ class Game
     {
         this.#i_Score = 0;
         this.#i_Lives = 3;
+        this.#i_ActiveLevel;
         update_lives_div(this.#i_Lives);
 
         this.#f_Timer = 0;
@@ -174,8 +176,15 @@ class Game
         return this.#i_Score;
     }
 
-    set_level_array(a_NewBricks)
+    get_active_level()
     {
+        return this.#i_ActiveLevel;
+    }
+
+    set_level_array(a_NewBricks, i_Level)
+    {
+        this.#i_ActiveLevel = i_Level;
+
         // Empties array of bricks and removes them from the scene
         for (let i = 0; i < this.#a_BrickObjects.length; i++)
         {

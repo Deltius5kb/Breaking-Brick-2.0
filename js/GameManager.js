@@ -30,7 +30,7 @@ class GameManager
         this.#b_LevelCreateActive = false;
         this.#b_SavingLevel = false;
 
-        set_all_levels_to_default_state();
+        // set_all_levels_to_default_state();
 
         this.#enable_main_menu();
     }
@@ -131,7 +131,7 @@ class GameManager
         {
             ButtonStates.ContinueFinishedMenu = false;
             this.#disable_game_finished_menu();
-            this.#enable_pause_menu();
+            this.#enable_level_select_menu();
         }
     }
 
@@ -153,7 +153,7 @@ class GameManager
             {
                 this.#a_LevelToLoadBricks = load_level_from_localstorage(`${m_SELECTED_LEVEL.i_Level}`);
                 this.#m_GameObject = new Game();
-                this.#m_GameObject.set_level_array(this.#a_LevelToLoadBricks);
+                this.#m_GameObject.set_level_array(this.#a_LevelToLoadBricks, m_SELECTED_LEVEL.i_Level);
 
                 this.#disable_level_select_menu();
                 this.#enable_game_ui();
@@ -207,6 +207,7 @@ class GameManager
                 this.#disable_pause_menu();
                 update_final_score_div(this.#m_GameObject.get_score());
                 this.#enable_game_finished_menu();
+                set_level_completed(this.#m_GameObject.get_active_level());
             }
         }
     }

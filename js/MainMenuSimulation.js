@@ -111,11 +111,40 @@ class MainMenuSimulation
         this.#m_Bat.set_position(this.#m_Ball.get_position_vector());
         this.#m_Bat.update(f_DeltaTime, this.#m_FrameBoundingBoxes);
 
-        int_handle_bricks_collision(this.#m_SceneThreejs, this.#m_Ball, this.#a_BrickObjects);
+        this.#handle_collisions();
     }
 
     draw()
     {
         this.#m_RendererThreejs.render(this.#m_SceneThreejs, this.#m_CameraThreejs);
+    }
+
+    #handle_collisions()
+    {
+        let m_BoundingSphere = this.#m_Ball.get_bounding_sphere();
+        let m_SphereBoundingBox = this.#m_Ball.get_bounding_box();
+
+        // Check each brick for collision with ball
+        for (let index = 0; index < this.#a_BrickObjects.length; index++) 
+        {
+            let m_BrickBoundingBox = this.#a_BrickObjects[index].get_bounding_box();
+            if (does_boundingsphere_collide_with_boundingbox(m_BoundingSphere, m_SphereBoundingBox, m_BrickBoundingBox))
+            {
+                // Make ball bounce off the brick
+                this.#m_Ball.bounce_off_brick(this.#a_BrickObjects[index].get_bounding_box());
+
+                // Apply damage
+                this.#a_BrickObjects[index].hit();
+                // If brick is destroyed
+                if (this.#a_BrickObjects[index].get_health() == 0)
+                {
+                    this.#a_BrickObjects[index].destroy(this.#m_SceneThreejs);
+                    // Removes from array
+                    this.#a_BrickObjects.splice(index, 1);
+
+                    break;
+                }
+            }
+        }
     }
 }

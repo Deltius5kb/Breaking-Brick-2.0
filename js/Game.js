@@ -14,6 +14,7 @@ class Game
     #m_Ball;
 
     #a_BrickObjects;
+    #a_FallingPowerups;
 
     #i_ActiveLevel;
     #i_Score;
@@ -25,6 +26,7 @@ class Game
     {
         this.#i_Score = 0;
         this.#i_Lives = 3;
+        this.#a_FallingPowerups = [];
         this.#i_ActiveLevel;
         update_lives_div(this.#i_Lives);
 
@@ -118,22 +120,14 @@ class Game
     update(f_DeltaTime)
     {
         this.#m_Bat.update(f_DeltaTime, this.#m_FrameBoundingBoxes);
-
-        // Handles inputs
-        {
-            if (KeyStates.space && !this.#m_Ball.get_ball_launched())
-            {
-                this.#m_Ball.launch_ball();
-                this.#m_Bat.set_can_move(true);
-                this.#b_TimerRunning = true;
-            }
-        }
-
         this.#m_Ball.update(f_DeltaTime, this.#m_FrameBoundingBoxes, this.#m_Bat.get_bounding_box());
+        this.#handle_inputs();
+        this.#handle_collisions();
 
-        // Handle collision of ball and bricks
-        this.#i_Score += int_handle_bricks_collision(this.#m_SceneThreejs, this.#m_Ball, this.#a_BrickObjects);
-        update_score_div(this.#i_Score);
+        for (let i = 0; i < this.#a_FallingPowerups.length; i++)
+        {
+            this.#a_FallingPowerups[i].update(f_DeltaTime);
+        }
 
         // If ball is out of frame 
         if (!this.#m_Ball.check_if_in_frame())
@@ -203,5 +197,55 @@ class Game
     draw() 
     {
         this.#m_RendererThreejs.render(this.#m_SceneThreejs, this.#m_CameraThreejs);
+    }
+
+    #handle_inputs()
+    {
+        // Handles inputs
+        {
+            if (KeyStates.space && !this.#m_Ball.get_ball_launched())
+            {
+                this.#m_Ball.launch_ball();
+                this.#m_Bat.set_can_move(true);
+                this.#b_TimerRunning = true;
+            }
+        }
+    }
+
+    #handle_collisions()
+    {
+        let m_BoundingSphere = this.#m_Ball.get_bounding_sphere();
+        let m_SphereBoundingBox = this.#m_Ball.get_bounding_box();
+
+        // Check each brick for collision with ball
+        for (let index = 0; index < this.#a_BrickObjects.length; index++) 
+        {
+            let m_BrickBoundingBox = this.#a_BrickObjects[index].get_bounding_box();
+            if (does_boundingsphere_collide_with_boundingbox(m_BoundingSphere, m_SphereBoundingBox, m_BrickBoundingBox))
+            {
+                // Make ball bounce off the brick
+                this.#m_Ball.bounce_off_brick(this.#a_BrickObjects[index].get_bounding_box());
+
+                // Apply damage
+                this.#a_BrickObjects[index].hit();
+                // If brick is destroyed
+                if (this.#a_BrickObjects[index].get_health() == 0)
+                {
+                    let vec3_CollidedBrickLocation = new THREE.Vector3();
+                    this.#a_BrickObjects[index].get_bounding_box().getCenter(vec3_CollidedBrickLocation);
+
+                    let m_ThisPowerup = new Powerup(this.#m_SceneThreejs, vec3_CollidedBrickLocation, true);
+                    this.#a_FallingPowerups.push(m_ThisPowerup);
+
+                    // Destroys brick mesh
+                    this.#i_Score += this.#a_BrickObjects[index].destroy(this.#m_SceneThreejs);
+                    // Removes from array
+                    this.#a_BrickObjects.splice(index, 1);
+
+                    break;
+                }
+            }
+        }
+        update_score_div(this.#i_Score);
     }
 }

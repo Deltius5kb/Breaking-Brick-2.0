@@ -8,10 +8,16 @@ spehers have powerup attribute
 
 const i_POWERUP_RADIUS = 10;
 
+const a_POWERUP_DROP_TABLE = [
+    ["widen_bat", 1],
+    ["increase_ball_speed", 2]
+];
+
 class Powerup
 {
     #m_Sphere;
     #vec3_Velocity;
+    #s_Effect;
     constructor(m_SceneThreejs, vec3_Location, b_Positive = true)
     {
         this.#vec3_Velocity = new THREE.Vector3(0, -0.3, 0);
@@ -33,6 +39,21 @@ class Powerup
                 vec3_Location.z
             );
         }
+
+        // Set effect
+        {
+            let a_PowerupsToChooseFrom = [];
+            for (let i = 0; i < a_POWERUP_DROP_TABLE.length; i++)
+            {
+                for (let j = 0; j < a_POWERUP_DROP_TABLE[i][1]; j++)
+                {
+                    a_PowerupsToChooseFrom.push(a_POWERUP_DROP_TABLE[i][0]);
+                }
+            }
+
+            this.#s_Effect = a_PowerupsToChooseFrom[Math.floor(Math.random() * a_PowerupsToChooseFrom.length)];
+        }
+        console.log(this.#s_Effect);
     }
 
     update(f_DeltaTime)

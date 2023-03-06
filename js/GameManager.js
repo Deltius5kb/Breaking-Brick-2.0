@@ -143,10 +143,15 @@ class GameManager
             else
             {
                 this.#a_LevelToLoadBricks = load_level_from_localstorage(`${m_SELECTED_LEVEL.i_Level}`);
+                this.#m_GameObject = new Game();
                 this.#m_GameObject.set_level_array(this.#a_LevelToLoadBricks);
-                update_level_div(m_SELECTED_LEVEL.i_Level);
+
                 this.#disable_level_select_menu();
                 this.#enable_game_ui();
+                this.#b_GameActive = true;
+
+                update_level_div(m_SELECTED_LEVEL.i_Level);
+                update_timer_div(0);
             }
             m_SELECTED_LEVEL.i_Level = 0;
         }
@@ -189,6 +194,7 @@ class GameManager
             if (this.#m_GameObject.check_if_level_completed())
             {
                 this.#disable_game_ui();
+                this.#b_GameActive = false;
                 this.#disable_pause_menu();
                 update_final_score_div(this.#m_GameObject.get_score());
                 this.#enable_game_finished_menu();
@@ -285,14 +291,12 @@ class GameManager
     {
         unhide_html_element("game-ui");
         unhide_html_element("game-canvas");
-        this.#b_GameActive = true;
     }
 
     #disable_game_ui()
     {
         hide_html_element("game-ui");
         hide_html_element("game-canvas");
-        this.#b_GameActive = false;
     }
 
     #enable_pause_menu()

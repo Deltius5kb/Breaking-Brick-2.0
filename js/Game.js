@@ -231,21 +231,24 @@ class Game
                 // If brick is destroyed
                 if (this.#a_BrickObjects[index].get_health() == 0)
                 {
-                    let vec3_CollidedBrickLocation = new THREE.Vector3();
-                    this.#a_BrickObjects[index].get_bounding_box().getCenter(vec3_CollidedBrickLocation);
+                    // Given chance, spawns a powerup
+                    let f_SpawnChance = 1;
+                    if (Math.random() < f_SpawnChance)
+                    {
+                        // Make powerup spawn
+                        let vec3_CollidedBrickLocation = new THREE.Vector3();
+                        this.#a_BrickObjects[index].get_bounding_box().getCenter(vec3_CollidedBrickLocation);
+                        let m_ThisPowerup = new Powerup(this.#m_SceneThreejs, vec3_CollidedBrickLocation, false);
+                        this.#a_FallingPowerups.push(m_ThisPowerup);
+                    }
 
-                    let m_ThisPowerup = new Powerup(this.#m_SceneThreejs, vec3_CollidedBrickLocation, true);
-                    this.#a_FallingPowerups.push(m_ThisPowerup);
-
-                    // Destroys brick mesh
+                    // Destroy brick
                     this.#i_Score += this.#a_BrickObjects[index].destroy(this.#m_SceneThreejs);
-                    // Removes from array
                     this.#a_BrickObjects.splice(index, 1);
-
-                    break;
+                    update_score_div(this.#i_Score);
+                    return;
                 }
             }
         }
-        update_score_div(this.#i_Score);
     }
 }

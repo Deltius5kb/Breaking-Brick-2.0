@@ -18,7 +18,7 @@ class Powerup
         // Make sphere geometry
         {
             let m_SphereGeometry = new THREE.SphereGeometry(10)
-            let m_Color = d_Colours["Red"];
+            let m_Color = d_Colours["Hot Pink"];
             if (b_Positive)
             {
                 m_Color = d_Colours["Green"];

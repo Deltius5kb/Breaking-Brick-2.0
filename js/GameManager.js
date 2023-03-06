@@ -110,6 +110,7 @@ class GameManager
             hide_html_element("level-select-create");
             this.#enable_level_select_menu();
             this.#b_SavingLevel = true;
+            document.getElementById("level-select-text").innerHTML = "save level to";
         }
 
         if (ButtonStates.ContinuePauseMenu)
@@ -146,6 +147,7 @@ class GameManager
                 save_level_to_localstorage(`${m_SELECTED_LEVEL.i_Level}`, this.#a_LevelCreationBricks);
                 this.#a_LevelCreationBricks = [];
                 this.#b_SavingLevel = false;
+                document.getElementById("level-select-text").innerHTML = "select level";
                 unhide_html_element("level-select-create");
             }
 

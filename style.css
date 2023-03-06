@@ -175,6 +175,7 @@ Level create ui
 #level-create-text {
   position: fixed;
   top: 80px;
+  z-index: -1;
   font-family: upheavtt;
   color: white;
   width: 100%;

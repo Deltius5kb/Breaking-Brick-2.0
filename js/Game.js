@@ -238,7 +238,7 @@ class Game
                         // Make powerup spawn
                         let vec3_CollidedBrickLocation = new THREE.Vector3();
                         this.#a_BrickObjects[index].get_bounding_box().getCenter(vec3_CollidedBrickLocation);
-                        let m_ThisPowerup = new Powerup(this.#m_SceneThreejs, vec3_CollidedBrickLocation, false);
+                        let m_ThisPowerup = new Powerup(this.#m_SceneThreejs, vec3_CollidedBrickLocation, true);
                         this.#a_FallingPowerups.push(m_ThisPowerup);
                     }
 

@@ -8,9 +8,13 @@ spehers have powerup attribute
 
 const i_POWERUP_RADIUS = 10;
 
-const a_POWERUP_DROP_TABLE = [
+const a_POSITIVE_POWERUP_DROP_TABLE = [
     ["widen_bat", 1],
     ["increase_ball_speed", 2]
+];
+
+const a_NEGATIVE_POWERUP_DROP_TABLE = [
+
 ];
 
 class Powerup
@@ -42,12 +46,20 @@ class Powerup
 
         // Set effect
         {
-            let a_PowerupsToChooseFrom = [];
-            for (let i = 0; i < a_POWERUP_DROP_TABLE.length; i++)
+            // Chooses drop table 
+            let a_DropTable = a_NEGATIVE_POWERUP_DROP_TABLE;
+            if (b_Positive)
             {
-                for (let j = 0; j < a_POWERUP_DROP_TABLE[i][1]; j++)
+                a_DropTable = a_POSITIVE_POWERUP_DROP_TABLE;
+            }
+
+            // Chooses random item from that drop table
+            let a_PowerupsToChooseFrom = [];
+            for (let i = 0; i < a_DropTable.length; i++)
+            {
+                for (let j = 0; j < a_DropTable[i][1]; j++)
                 {
-                    a_PowerupsToChooseFrom.push(a_POWERUP_DROP_TABLE[i][0]);
+                    a_PowerupsToChooseFrom.push(a_DropTable[i][0]);
                 }
             }
 

@@ -182,6 +182,8 @@ class Game
             this.#a_BrickObjects[i].destroy(this.#m_SceneThreejs);
         }
 
+        this.#a_BrickObjects = [];
+
         for (let i = 0; i < a_NewBricks.length; i++)
         {
             let m_Brick = new Brick(this.#m_SceneThreejs, a_NewBricks[i].i_Health, a_NewBricks[i].vec2_GridLocation);

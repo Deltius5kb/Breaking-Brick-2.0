@@ -122,6 +122,7 @@ class GameManager
         if (ButtonStates.BackPauseMenu)
         {
             ButtonStates.BackPauseMenu = false;
+            this.#b_GameActive = false;
             this.#disable_pause_menu();
             this.#enable_level_select_menu();
         }
@@ -148,7 +149,7 @@ class GameManager
                 unhide_html_element("level-select-create");
             }
 
-            else
+            else if (check_if_level_unlocked(m_SELECTED_LEVEL.i_Level) || m_SELECTED_LEVEL.i_Level == 1)
             {
                 this.#a_LevelToLoadBricks = load_level_from_localstorage(`${m_SELECTED_LEVEL.i_Level}`);
                 this.#m_GameObject = new Game();

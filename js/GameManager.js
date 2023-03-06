@@ -44,6 +44,14 @@ class GameManager
         this.#check_level_select_buttons();
         this.#update_active_scene();
         this.#update_level_creator();
+
+        // Debug tool 
+        if (KeyStates.m)
+        {
+            KeyStates.m = false;
+            unlocked_next_level();
+            update_levels_unlocked();
+        }
     }
 
     #check_buttons()

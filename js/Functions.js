@@ -145,6 +145,22 @@ function update_levels_unlocked()
     }
 }
 
+// Debug tool 
+function unlocked_next_level()
+{
+    let a_LevelsStatus = JSON.parse(localStorage.getItem("levels_status"));
+
+    for (let i = 0; i < a_LevelsStatus.length; i++)
+    {
+        if (!a_LevelsStatus[i])
+        {
+            a_LevelsStatus[i] = true;
+            localStorage.setItem("levels_status", JSON.stringify(a_LevelsStatus));
+            return;
+        }
+    }
+}
+
 function update_final_score_div(i_NewScore)
 {
     let str_Score = i_NewScore.toString();
